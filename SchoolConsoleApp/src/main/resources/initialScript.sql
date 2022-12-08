@@ -1,6 +1,10 @@
 DROP DATABASE IF EXISTS school;
 DROP ROLE IF EXISTS school_admin;
-CREATE USER school_admin;
+
+CREATE ROLE school_admin 
+LOGIN
+PASSWORD '1234';
+
 
 CREATE DATABASE school
     WITH
