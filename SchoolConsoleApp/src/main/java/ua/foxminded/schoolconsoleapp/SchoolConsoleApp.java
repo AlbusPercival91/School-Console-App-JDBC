@@ -1,11 +1,12 @@
-package ua.foxminded.tarasevych.schoolconsoleapp;
+package ua.foxminded.schoolconsoleapp;
 
-import ua.foxminded.tarasevych.schoolconsoleapp.tables.DBTables;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+
+import ua.foxminded.schoolconsoleapp.tables.DBTables;
 
 public class SchoolConsoleApp {
     static Logger logger = Logger.getLogger(SchoolConsoleApp.class);
