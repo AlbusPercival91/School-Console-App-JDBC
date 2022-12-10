@@ -1,16 +1,23 @@
 package ua.foxminded.schoolconsoleapp.schooldata;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.github.javafaker.Faker;
 
 public class Student {
+    Faker faker = new Faker();
 
-    public Map<String, String> generateStudents() {
-        Faker faker = new Faker();
-        return IntStream.range(0, 20).collect(LinkedHashMap::new,
-                (m, i) -> m.put(faker.name().firstName(), faker.name().lastName()), Map::putAll);
+    public List<String> generateNames() {
+        return IntStream.range(0, 10).<String>mapToObj(i -> faker.name().firstName())
+                .collect(Collectors.toCollection(() -> new ArrayList<>(10)));
     }
+
+    public List<String> generateSurnames() {
+        return IntStream.range(0, 10).<String>mapToObj(i -> faker.name().lastName())
+                .collect(Collectors.toCollection(() -> new ArrayList<>(10)));
+    }
+
 }

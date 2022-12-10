@@ -18,19 +18,20 @@ public class SchoolConsoleApp {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         PropertyConfigurator.configure(classLoader.getResource("log4j.properties "));
 
-//        String command = "psql -U postgres -h localhost -p 5432 " + "-f "
-//                + Paths.get(classLoader.getResource("initialScript.sql").toURI());
-//        String[] envVars = { "PGPASSWORD=1234" };
-//        Process runInitScript = Runtime.getRuntime().exec(command, envVars);
-//        runInitScript.waitFor();
-//
-//        Tables.createTables("tables.sql");
+        String command = "psql -U postgres -h localhost -p 5432 " + "-f "
+                + Paths.get(classLoader.getResource("initialScript.sql").toURI());
+        String[] envVars = { "PGPASSWORD=1234" };
+        Process runInitScript = Runtime.getRuntime().exec(command, envVars);
+        runInitScript.waitFor();
+
+        Tables.createTables("tables.sql");
 
         Group group = new Group();
         logger.info(group.generateGroups());
 
         Student student = new Student();
-        logger.info(student.generateStudents());
+        logger.info(student.generateNames());
+        logger.info(student.generateSurnames());
 
         Course course = new Course();
         logger.info(course.generateCourses());
