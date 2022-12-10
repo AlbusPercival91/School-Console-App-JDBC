@@ -11,14 +11,13 @@ import java.sql.SQLException;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.apache.log4j.PropertyConfigurator;
 
-public class DBTables {
+public class Tables {
 
-    private DBTables() {
+    private Tables() {
 
     }
 
     public static void createTables(String fileName) {
-
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/school",
                 "school_admin", "1234");
                 InputStream inputStream = PropertyConfigurator.class.getResourceAsStream("/" + fileName)) {

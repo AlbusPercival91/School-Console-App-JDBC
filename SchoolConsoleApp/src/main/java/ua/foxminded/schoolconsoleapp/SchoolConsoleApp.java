@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-import ua.foxminded.schoolconsoleapp.tables.DBTables;
+import ua.foxminded.schoolconsoleapp.tables.Tables;
 
 public class SchoolConsoleApp {
     static Logger logger = Logger.getLogger(SchoolConsoleApp.class);
@@ -21,7 +21,7 @@ public class SchoolConsoleApp {
         Process runInitScript = Runtime.getRuntime().exec(command, envVars);
         runInitScript.waitFor();
 
-        DBTables.createTables("create_tables.sql");
+        Tables.createTables("tables.sql");
 
     }
 }
