@@ -6,6 +6,9 @@ import java.nio.file.Paths;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
+import ua.foxminded.schoolconsoleapp.schooldata.Course;
+import ua.foxminded.schoolconsoleapp.schooldata.Group;
+import ua.foxminded.schoolconsoleapp.schooldata.Student;
 import ua.foxminded.schoolconsoleapp.tables.Tables;
 
 public class SchoolConsoleApp {
@@ -23,5 +26,13 @@ public class SchoolConsoleApp {
 
         Tables.createTables("tables.sql");
 
+        Group group = new Group();
+        logger.info(group.generateGroups());
+
+        Student student = new Student();
+        logger.info(student.generateStudents());
+
+        Course course = new Course();
+        logger.info(course.generateCourses());
     }
 }
