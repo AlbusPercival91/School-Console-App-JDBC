@@ -5,7 +5,6 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-
 import ua.foxminded.schoolconsoleapp.schooldata.Course;
 import ua.foxminded.schoolconsoleapp.schooldata.Group;
 import ua.foxminded.schoolconsoleapp.schooldata.Student;
