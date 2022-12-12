@@ -10,17 +10,17 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import com.github.javafaker.Faker;
 
-public class Student {
+public class StudentMaker {
     Faker faker = new Faker();
 
-    public List<String> generateNames() {
-        return IntStream.range(0, 20).<String>mapToObj(i -> faker.name().firstName())
-                .collect(Collectors.toCollection(() -> new ArrayList<>(20)));
+    public List<String> generateNames(int quantity) {
+        return IntStream.range(0, quantity).<String>mapToObj(i -> faker.name().firstName())
+                .collect(Collectors.toCollection(() -> new ArrayList<>(quantity)));
     }
 
-    public List<String> generateSurnames() {
-        return IntStream.range(0, 20).<String>mapToObj(i -> faker.name().lastName())
-                .collect(Collectors.toCollection(() -> new ArrayList<>(20)));
+    public List<String> generateSurnames(int quantity) {
+        return IntStream.range(0, quantity).<String>mapToObj(i -> faker.name().lastName())
+                .collect(Collectors.toCollection(() -> new ArrayList<>(quantity)));
     }
 
     public Set<String> generateStudents(List<String> names, List<String> surnames) {

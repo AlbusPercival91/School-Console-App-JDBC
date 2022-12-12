@@ -6,9 +6,9 @@ import java.nio.file.Paths;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-import ua.foxminded.schoolconsoleapp.datageneration.Course;
-import ua.foxminded.schoolconsoleapp.datageneration.Group;
-import ua.foxminded.schoolconsoleapp.datageneration.Student;
+import ua.foxminded.schoolconsoleapp.datageneration.CourseMaker;
+import ua.foxminded.schoolconsoleapp.datageneration.GroupMaker;
+import ua.foxminded.schoolconsoleapp.datageneration.StudentMaker;
 import ua.foxminded.schoolconsoleapp.dbconnection.InitialTables;
 
 public class SchoolConsoleApp {
@@ -26,15 +26,15 @@ public class SchoolConsoleApp {
 
         InitialTables.createTables("tables.sql");
 
-        Group group = new Group();
+        GroupMaker group = new GroupMaker();
         logger.info(group.generateGroups());
 
-        Course course = new Course();
+        CourseMaker course = new CourseMaker();
         logger.info(course.generateCourses());
 
-        Student student = new Student();
+        StudentMaker student = new StudentMaker();
 
-        for (String s : student.generateStudents(student.generateNames(), student.generateSurnames())) {
+        for (String s : student.generateStudents(student.generateNames(20), student.generateSurnames(20))) {
             logger.info(s);
         }
 

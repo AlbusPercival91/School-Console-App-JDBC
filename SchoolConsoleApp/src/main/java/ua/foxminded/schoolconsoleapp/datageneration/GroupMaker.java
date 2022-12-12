@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
 
-public class Group {
+public class GroupMaker {
 
     public List<String> generateGroups() {
         FakeValuesService fakeValuesService = new FakeValuesService(new Locale("en-GB"), new RandomService());
