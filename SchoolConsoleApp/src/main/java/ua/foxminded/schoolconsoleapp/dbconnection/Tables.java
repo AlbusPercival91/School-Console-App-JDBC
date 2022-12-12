@@ -1,4 +1,4 @@
-package ua.foxminded.schoolconsoleapp.tables;
+package ua.foxminded.schoolconsoleapp.dbconnection;
 
 import java.io.BufferedReader;
 import java.io.IOException;
