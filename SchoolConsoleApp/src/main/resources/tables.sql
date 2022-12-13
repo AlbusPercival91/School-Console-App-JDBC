@@ -10,7 +10,7 @@ CREATE SCHEMA IF NOT EXISTS school
     AUTHORIZATION school_admin;
     
 CREATE TABLE IF NOT EXISTS school.group (
-    group_id integer NOT NULL,
+    group_id SERIAL NOT NULL,
     group_name character(60) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT group_pkey PRIMARY KEY (group_id)
 );

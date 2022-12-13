@@ -10,6 +10,7 @@ import ua.foxminded.schoolconsoleapp.datageneration.CourseMaker;
 import ua.foxminded.schoolconsoleapp.datageneration.GroupMaker;
 import ua.foxminded.schoolconsoleapp.datageneration.StudentMaker;
 import ua.foxminded.schoolconsoleapp.dbconnection.InitialTables;
+import ua.foxminded.schoolconsoleapp.schooldao.GroupDAO;
 
 public class SchoolConsoleApp {
     static Logger logger = Logger.getLogger(SchoolConsoleApp.class);
@@ -37,6 +38,9 @@ public class SchoolConsoleApp {
         for (String s : student.generateStudents(student.generateNames(20), student.generateSurnames(20))) {
             logger.info(s);
         }
+
+        GroupDAO groupDao = new GroupDAO();
+        groupDao.createGroup();
 
     }
 }
