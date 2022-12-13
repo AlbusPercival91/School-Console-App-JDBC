@@ -10,9 +10,9 @@ public class GroupDAO {
     GroupMaker groupMaker = new GroupMaker();
 
     public void createGroup() {
-        String SQL = "INSERT INTO school.group(group_name) " + "VALUES(?)";
+        String sql = "INSERT INTO school.group(group_name) " + "VALUES(?)";
         try (Connection connection = DataBaseConnection.connect();
-                PreparedStatement statement = connection.prepareStatement(SQL)) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
 
             for (String s : groupMaker.generateGroups()) {
                 statement.setString(1, s);
