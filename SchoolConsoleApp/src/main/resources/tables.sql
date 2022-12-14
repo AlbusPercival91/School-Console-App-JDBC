@@ -10,7 +10,7 @@ CREATE SCHEMA IF NOT EXISTS school
     AUTHORIZATION school_admin;
     
 CREATE TABLE IF NOT EXISTS school.group (
-    group_id SERIAL NOT NULL,
+    group_id SERIAL,
     group_name character(60) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT group_pkey PRIMARY KEY (group_id)
 );
@@ -29,11 +29,7 @@ CREATE TABLE IF NOT EXISTS school.students(
     group_id integer,
     first_name character(30) COLLATE pg_catalog."default" NOT NULL,
     last_name character(40) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT students_pkey PRIMARY KEY (student_id),
-    CONSTRAINT students_group_id_fkey FOREIGN KEY (group_id)
-        REFERENCES school.group (group_id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+    CONSTRAINT students_pkey PRIMARY KEY (student_id) 
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS student_id_index

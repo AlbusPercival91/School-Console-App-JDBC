@@ -9,7 +9,7 @@ import ua.foxminded.schoolconsoleapp.dbconnection.DataBaseConnection;
 public class GroupDAO {
     GroupMaker groupMaker = new GroupMaker();
 
-    public void createGroup() {
+    public void autoCreate() {
         String sql = "INSERT INTO school.group(group_name) " + "VALUES(?)";
         try (Connection connection = DataBaseConnection.connect();
                 PreparedStatement statement = connection.prepareStatement(sql)) {

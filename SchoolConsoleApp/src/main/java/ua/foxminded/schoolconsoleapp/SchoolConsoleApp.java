@@ -5,12 +5,10 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-
 import ua.foxminded.schoolconsoleapp.datageneration.CourseMaker;
-import ua.foxminded.schoolconsoleapp.datageneration.GroupMaker;
-import ua.foxminded.schoolconsoleapp.datageneration.StudentMaker;
 import ua.foxminded.schoolconsoleapp.dbconnection.InitialTables;
 import ua.foxminded.schoolconsoleapp.schooldao.GroupDAO;
+import ua.foxminded.schoolconsoleapp.schooldao.StudentDAO;
 
 public class SchoolConsoleApp {
     static Logger logger = Logger.getLogger(SchoolConsoleApp.class);
@@ -27,20 +25,13 @@ public class SchoolConsoleApp {
 
         InitialTables.createTables("tables.sql");
 
-        GroupMaker group = new GroupMaker();
-        logger.info(group.generateGroups());
-
         CourseMaker course = new CourseMaker();
         logger.info(course.generateCourses());
 
-        StudentMaker student = new StudentMaker();
-
-        for (String s : student.generateStudents(student.generateNames(20), student.generateSurnames(20))) {
-            logger.info(s);
-        }
-
         GroupDAO groupDao = new GroupDAO();
-        groupDao.createGroup();
+        groupDao.autoCreate();
 
+        StudentDAO student = new StudentDAO();
+        student.autoCreate();
     }
 }
