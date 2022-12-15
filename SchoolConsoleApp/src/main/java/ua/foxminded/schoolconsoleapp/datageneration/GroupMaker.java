@@ -29,6 +29,7 @@ public class GroupMaker {
                     if (randomID == 0) {
                         randomID = -1;
                     }
+                    
                     if (Collections.frequency(id, randomID) <= 30 || Collections.frequency(id, randomID) >= 10) {
                         Collections.addAll(id, randomID);
                     }
