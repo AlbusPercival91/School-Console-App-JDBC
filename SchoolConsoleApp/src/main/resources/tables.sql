@@ -1,7 +1,7 @@
+DROP TABLE IF EXISTS school.students_courses_checkouts;
 DROP TABLE IF EXISTS school.students;
 DROP TABLE IF EXISTS school.course;
 DROP TABLE IF EXISTS school.group;
-DROP TABLE IF EXISTS school.students_courses_checkouts;
 
 DROP SEQUENCE IF EXISTS school.student_seq;
 DROP SEQUENCE IF EXISTS school.course_seq;
@@ -42,7 +42,6 @@ CREATE TABLE IF NOT EXISTS school.course(
 
 CREATE TABLE IF NOT EXISTS school.students_courses_checkouts(
     student_id integer NOT NULL DEFAULT nextval('school.student_seq'::regclass),
-    course_id integer NOT NULL DEFAULT nextval('school.course_seq'::regclass),
     CONSTRAINT students_courses_checkouts_pkey PRIMARY KEY (student_id) 
 );
     
