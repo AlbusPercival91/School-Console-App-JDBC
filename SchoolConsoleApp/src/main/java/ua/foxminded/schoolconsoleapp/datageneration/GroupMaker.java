@@ -27,9 +27,9 @@ public class GroupMaker {
                     Integer randomID = ThreadLocalRandom.current().nextInt(0, 11);
 
                     if (randomID == 0) {
-                        randomID = -1;
+                        randomID = null;
                     }
-                    
+
                     if (Collections.frequency(id, randomID) <= 30 || Collections.frequency(id, randomID) >= 10) {
                         Collections.addAll(id, randomID);
                     }

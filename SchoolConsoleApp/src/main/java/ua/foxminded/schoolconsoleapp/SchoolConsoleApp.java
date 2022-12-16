@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+
+import ua.foxminded.schoolconsoleapp.datageneration.GroupMaker;
 import ua.foxminded.schoolconsoleapp.dbconnection.InitialTables;
 import ua.foxminded.schoolconsoleapp.schooldao.CourseDAO;
 import ua.foxminded.schoolconsoleapp.schooldao.GroupDAO;
@@ -25,6 +27,7 @@ public class SchoolConsoleApp {
 
         InitialTables.createTables("tables.sql");
 
+
         GroupDAO groupDao = new GroupDAO();
         groupDao.autoCreate();
 
@@ -33,5 +36,8 @@ public class SchoolConsoleApp {
 
         CourseDAO course = new CourseDAO();
         course.autoCreate();
+
+    
+
     }
 }

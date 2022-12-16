@@ -19,7 +19,7 @@ public class StudentDAO {
                 PreparedStatement statement = connection.prepareStatement(sql)) {
 
             for (String s : student.generateStudents(student.generateNames(20), student.generateSurnames(20))) {
-                statement.setInt(1, group.generateGroupId().get(i++));
+                statement.setObject(1, group.generateGroupId().get(i++));
                 statement.setString(2, s.substring(0, s.indexOf(" ")));
                 statement.setString(3, s.substring(s.indexOf(" ")));
                 statement.addBatch();

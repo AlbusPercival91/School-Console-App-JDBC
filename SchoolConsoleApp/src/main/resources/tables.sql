@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS school.group;
 
 DROP SEQUENCE IF EXISTS school.student_seq;
 DROP SEQUENCE IF EXISTS school.course_seq;
+DROP SEQUENCE IF EXISTS school.group_seq;
 
 DROP SCHEMA IF EXISTS school;
 
@@ -19,14 +20,18 @@ CREATE SEQUENCE IF NOT EXISTS school.course_seq
     INCREMENT 1
     START 1;
     
+CREATE SEQUENCE IF NOT EXISTS school.group_seq
+    INCREMENT 1
+    START 1;
+    
 CREATE TABLE IF NOT EXISTS school.group (
-    group_id SERIAL,
+    group_id integer DEFAULT nextval('school.group_seq'::regclass),
     group_name character(60) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT group_pkey PRIMARY KEY (group_id)
 );
     
 CREATE TABLE IF NOT EXISTS school.students(
-    student_id integer NOT NULL DEFAULT nextval('school.student_seq'::regclass),
+    student_id integer DEFAULT nextval('school.student_seq'::regclass),
     group_id integer,
     first_name character(30) COLLATE pg_catalog."default" NOT NULL,
     last_name character(40) COLLATE pg_catalog."default" NOT NULL,
@@ -34,16 +39,20 @@ CREATE TABLE IF NOT EXISTS school.students(
 );
     
 CREATE TABLE IF NOT EXISTS school.course(
-    course_id SERIAL,
+    course_id integer DEFAULT nextval('school.course_seq'::regclass),
     course_name character(90) COLLATE pg_catalog."default" NOT NULL,
     course_description text COLLATE pg_catalog."default",
     CONSTRAINT course_pkey PRIMARY KEY (course_id)
 );
 
 CREATE TABLE IF NOT EXISTS school.students_courses_checkouts(
-    student_id integer NOT NULL DEFAULT nextval('school.student_seq'::regclass),
-    CONSTRAINT students_courses_checkouts_pkey PRIMARY KEY (student_id) 
+    checkouts_id SERIAL,
+    student_id integer DEFAULT nextval('school.student_seq'::regclass),
+    course_id integer DEFAULT nextval('school.course_seq'::regclass),
+    CONSTRAINT students_courses_checkouts_pkey PRIMARY KEY (checkouts_id) 
 );
+
+
     
 
 
