@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import ua.foxminded.schoolconsoleapp.datageneration.GroupMaker;
 import ua.foxminded.schoolconsoleapp.dbconnection.DataBaseConnection;
 
-public class GroupDAO {
+public class GroupTestDAO {
     GroupMaker groupMaker = new GroupMaker();
 
     public void autoCreate() {

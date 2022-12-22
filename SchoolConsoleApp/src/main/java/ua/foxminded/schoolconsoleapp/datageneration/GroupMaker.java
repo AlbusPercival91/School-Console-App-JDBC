@@ -19,21 +19,26 @@ public class GroupMaker {
                 .collect(Collectors.toCollection(() -> new ArrayList<>(10)));
     }
 
-    public List<Integer> generateGroupId() {
-        List<Integer> id = new ArrayList<>();
+    public List<Integer> assignGroupId() {
+        List<Integer> groupID = new ArrayList<>();
+        int studentsQtty = student.generateStudents(student.generateNames(20), student.generateSurnames(20)).size();
 
-        IntStream.range(0, student.generateStudents(student.generateNames(20), student.generateSurnames(20)).size())
-                .forEach(s -> {
-                    Integer randomID = ThreadLocalRandom.current().nextInt(0, 11);
+        for (int i = 0; i < studentsQtty; i++) {
+            Integer rand = ThreadLocalRandom.current().nextInt(0, 11);
 
-                    if (randomID == 0) {
-                        randomID = null;
-                    }
+            if (rand == 0) {
+                rand = null;
+            }
 
-                    if (Collections.frequency(id, randomID) <= 30 || Collections.frequency(id, randomID) >= 10) {
-                        Collections.addAll(id, randomID);
-                    }
-                });
-        return id;
+            if (Collections.frequency(groupID, rand) < 30 && groupID.size() < studentsQtty) {
+                groupID.add(rand);
+
+                while (Collections.frequency(groupID, rand) < 10) {
+                    groupID.add(rand);
+                }
+            }
+        }
+        return groupID;
     }
+
 }

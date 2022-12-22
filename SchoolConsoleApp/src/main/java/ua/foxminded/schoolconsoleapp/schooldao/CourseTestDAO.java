@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import ua.foxminded.schoolconsoleapp.datageneration.CourseMaker;
 import ua.foxminded.schoolconsoleapp.dbconnection.DataBaseConnection;
 
-public class CourseDAO {
+public class CourseTestDAO {
     CourseMaker courseMaker = new CourseMaker();
 
     public void autoCreate() {
