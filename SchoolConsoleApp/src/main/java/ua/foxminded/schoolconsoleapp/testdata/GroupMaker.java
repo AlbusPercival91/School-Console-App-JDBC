@@ -1,4 +1,4 @@
-package ua.foxminded.schoolconsoleapp.datageneration;
+package ua.foxminded.schoolconsoleapp.testdata;
 
 import java.util.ArrayList;
 import java.util.Collections;

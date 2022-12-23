@@ -6,10 +6,10 @@ import java.nio.file.Paths;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import ua.foxminded.schoolconsoleapp.dbconnection.InitialTables;
-import ua.foxminded.schoolconsoleapp.testdao.CourseStudentTestDAO;
-import ua.foxminded.schoolconsoleapp.testdao.CourseTestDAO;
-import ua.foxminded.schoolconsoleapp.testdao.GroupTestDAO;
-import ua.foxminded.schoolconsoleapp.testdao.StudentTestDAO;
+import ua.foxminded.schoolconsoleapp.testdatadao.CourseStudentTestDAO;
+import ua.foxminded.schoolconsoleapp.testdatadao.CourseTestDAO;
+import ua.foxminded.schoolconsoleapp.testdatadao.GroupTestDAO;
+import ua.foxminded.schoolconsoleapp.testdatadao.StudentTestDAO;
 
 public class SchoolConsoleApp {
     static Logger logger = Logger.getLogger(SchoolConsoleApp.class);

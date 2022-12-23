@@ -1,12 +1,12 @@
-package ua.foxminded.schoolconsoleapp.testdao;
+package ua.foxminded.schoolconsoleapp.testdatadao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import ua.foxminded.schoolconsoleapp.datageneration.GroupMaker;
-import ua.foxminded.schoolconsoleapp.datageneration.StudentMaker;
 import ua.foxminded.schoolconsoleapp.dbconnection.DataBaseConnection;
+import ua.foxminded.schoolconsoleapp.testdata.GroupMaker;
+import ua.foxminded.schoolconsoleapp.testdata.StudentMaker;
 
 public class StudentTestDAO {
     StudentMaker student = new StudentMaker();
