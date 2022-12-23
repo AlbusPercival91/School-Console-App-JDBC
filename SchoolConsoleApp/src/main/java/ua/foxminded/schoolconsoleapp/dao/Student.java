@@ -1,4 +1,4 @@
-package ua.foxminded.schoolconsoleapp.schooldao;
+package ua.foxminded.schoolconsoleapp.dao;
 
 public class Student {
     private String studentName;

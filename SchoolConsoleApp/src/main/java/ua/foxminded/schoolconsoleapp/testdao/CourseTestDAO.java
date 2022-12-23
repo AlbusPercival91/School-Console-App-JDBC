@@ -1,21 +1,22 @@
-package ua.foxminded.schoolconsoleapp.schooldao;
+package ua.foxminded.schoolconsoleapp.testdao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import ua.foxminded.schoolconsoleapp.datageneration.GroupMaker;
+import ua.foxminded.schoolconsoleapp.datageneration.CourseMaker;
 import ua.foxminded.schoolconsoleapp.dbconnection.DataBaseConnection;
 
-public class GroupTestDAO {
-    GroupMaker groupMaker = new GroupMaker();
+public class CourseTestDAO {
+    CourseMaker courseMaker = new CourseMaker();
 
     public void autoCreate() {
-        String sql = "INSERT INTO school.group(group_name) " + "VALUES(?)";
+        String sql = "INSERT INTO school.course(course_name, course_description) " + "VALUES(?,?)";
         try (Connection connection = DataBaseConnection.connect();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            for (String s : groupMaker.generateGroups()) {
+            for (String s : courseMaker.generateCourses()) {
                 statement.setString(1, s);
+                statement.setString(2, "TBD");
                 statement.addBatch();
                 statement.executeBatch();
             }
@@ -23,5 +24,4 @@ public class GroupTestDAO {
             e.printStackTrace();
         }
     }
-
 }

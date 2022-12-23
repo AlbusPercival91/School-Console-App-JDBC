@@ -21,13 +21,14 @@ public class CourseMaker {
 
     public Map<Integer, Set<Integer>> assignCourseId() {
         Map<Integer, Set<Integer>> studentCourseID = new HashMap<>();
+        int studentsQtty = student.generateStudents(student.generateNames(20), student.generateSurnames(20)).size();
 
-        IntStream.range(1, 201).forEach(i -> {
+        IntStream.range(1, studentsQtty + 1).forEachOrdered(i -> {
             Set<Integer> courseID = new HashSet<>();
-            Integer listSize = ThreadLocalRandom.current().nextInt(1, 4);
+            Integer localSetSize = ThreadLocalRandom.current().nextInt(1, 4);
 
-            IntStream.range(0, listSize).mapToObj(j -> ThreadLocalRandom.current().nextInt(1, 11))
-                    .filter(rand -> Collections.frequency(courseID, rand) < 3).forEach(courseID::add);
+            IntStream.range(0, localSetSize).mapToObj(j -> ThreadLocalRandom.current().nextInt(1, 11))
+                    .filter(rand -> Collections.frequency(courseID, rand) < 3).forEachOrdered(courseID::add);
             studentCourseID.put(i, courseID);
         });
         return studentCourseID;
