@@ -16,9 +16,8 @@ public class StudentDAO {
 
             while (set.next()) {
                 int groupID = set.getInt(1);
-                int count = set.getInt(2);
 
-                System.out.println("Group ID: " + groupID + "\ncount: " + count);
+                System.out.println("Group ID: " + groupID );
                 System.out.println("----------------------------------------------");
             }
 
