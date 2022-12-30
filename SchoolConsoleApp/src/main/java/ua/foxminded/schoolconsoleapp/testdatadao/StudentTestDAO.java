@@ -13,11 +13,11 @@ public class StudentTestDAO {
     GroupMaker group = new GroupMaker();
     
     public void autoCreate() {
+        String query = "INSERT INTO school.students(group_id, first_name, last_name) " + "VALUES(?,?,?)";
         int i = 0;
-        String sql = "INSERT INTO school.students(group_id, first_name, last_name) " + "VALUES(?,?,?)";
         
         try (Connection connection = DataBaseConnection.connect();
-                PreparedStatement statement = connection.prepareStatement(sql)) {
+                PreparedStatement statement = connection.prepareStatement(query)) {
 
             for (String s : student.generateStudents(student.generateNames(20), student.generateSurnames(20))) {
                 statement.setObject(1, group.assignGroupId().get(i++));

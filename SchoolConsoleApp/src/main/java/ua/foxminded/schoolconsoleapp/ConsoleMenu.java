@@ -5,6 +5,8 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
+import ua.foxminded.schoolconsoleapp.dao.StudentDAO;
+
 public class ConsoleMenu {
     static Logger logger = Logger.getLogger(ConsoleMenu.class);
 
@@ -17,17 +19,23 @@ public class ConsoleMenu {
         school.startSchoolApp();
 
         String command = "";
+        int quant = 0;
+
+        logger.info("a. Find all groups with less or equal students’ number\n"
+                + "b. Find all students related to the course with the given name\n" + "c. Add a new student\n"
+                + "d. Delete a student by the STUDENT_ID\n" + "e. Add a student to the course (from a list)\n"
+                + "f. Remove the student from one of their courses\n");
 
         while (!command.equalsIgnoreCase("q")) {
-            logger.info("a. Find all groups with less or equal students’ number\n"
-                    + "b. Find all students related to the course with the given name\n" + "c. Add a new student\n"
-                    + "d. Delete a student by the STUDENT_ID\n" + "e. Add a student to the course (from a list)\n"
-                    + "f. Remove the student from one of their courses\n");
 
             command = scan.nextLine();
 
             if (command.equals("a")) {
-                logger.info("a");
+                logger.info("how many students?");
+                quant = scan.nextInt();
+
+                StudentDAO dao = new StudentDAO();
+                dao.findGgoupsWithLessOrEqualsStudents(quant);
             }
 
             if (command.equals("b")) {

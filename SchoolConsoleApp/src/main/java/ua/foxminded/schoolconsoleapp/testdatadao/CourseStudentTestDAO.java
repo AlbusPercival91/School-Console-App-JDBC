@@ -15,10 +15,10 @@ public class CourseStudentTestDAO {
     CourseMaker course = new CourseMaker();
 
     public void autoCreate() {
-        String sql = "INSERT INTO school.students_courses_checkouts(student_id,course_id) " + "VALUES(?,?)";
+        String query = "INSERT INTO school.students_courses_checkouts(student_id,course_id) " + "VALUES(?,?)";
 
         try (Connection connection = DataBaseConnection.connect();
-                PreparedStatement statement = connection.prepareStatement(sql)) {
+                PreparedStatement statement = connection.prepareStatement(query)) {
 
             for (Map.Entry<Integer, Set<Integer>> entry : course.assignCourseId().entrySet()) {
                 Integer key = entry.getKey();

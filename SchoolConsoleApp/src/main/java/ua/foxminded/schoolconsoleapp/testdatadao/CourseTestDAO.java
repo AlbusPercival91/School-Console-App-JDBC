@@ -11,9 +11,9 @@ public class CourseTestDAO {
     CourseMaker courseMaker = new CourseMaker();
 
     public void autoCreate() {
-        String sql = "INSERT INTO school.course(course_name, course_description) " + "VALUES(?,?)";
+        String query = "INSERT INTO school.course(course_name, course_description) " + "VALUES(?,?)";
         try (Connection connection = DataBaseConnection.connect();
-                PreparedStatement statement = connection.prepareStatement(sql)) {
+                PreparedStatement statement = connection.prepareStatement(query)) {
 
             for (String s : courseMaker.generateCourses()) {
                 statement.setString(1, s);

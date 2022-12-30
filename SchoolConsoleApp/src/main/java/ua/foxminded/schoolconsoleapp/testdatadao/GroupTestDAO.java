@@ -11,9 +11,9 @@ public class GroupTestDAO {
     GroupMaker groupMaker = new GroupMaker();
 
     public void autoCreate() {
-        String sql = "INSERT INTO school.group(group_name) " + "VALUES(?)";
+        String query = "INSERT INTO school.group(group_name) " + "VALUES(?)";
         try (Connection connection = DataBaseConnection.connect();
-                PreparedStatement statement = connection.prepareStatement(sql)) {
+                PreparedStatement statement = connection.prepareStatement(query)) {
 
             for (String s : groupMaker.generateGroups()) {
                 statement.setString(1, s);
