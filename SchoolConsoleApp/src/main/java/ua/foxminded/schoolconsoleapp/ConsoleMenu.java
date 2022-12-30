@@ -19,46 +19,30 @@ public class ConsoleMenu {
         school.startSchoolApp();
 
         String command = "";
-        int quant = 0;
 
-        logger.info("a. Find all groups with less or equal students’ number\n"
-                + "b. Find all students related to the course with the given name\n" + "c. Add a new student\n"
-                + "d. Delete a student by the STUDENT_ID\n" + "e. Add a student to the course (from a list)\n"
-                + "f. Remove the student from one of their courses\n");
-
-        while (!command.equalsIgnoreCase("q")) {
-
+        do {
+            logger.info("a. Find all groups with less or equal students’ number\n"
+                    + "b. Find all students related to the course with the given name\n" + "c. Add a new student\n"
+                    + "d. Delete a student by the STUDENT_ID\n" + "e. Add a student to the course (from a list)\n"
+                    + "f. Remove the student from one of their courses\n");
             command = scan.nextLine();
 
             if (command.equals("a")) {
-                logger.info("how many students?");
-                quant = scan.nextInt();
-
-                StudentDAO dao = new StudentDAO();
-                dao.findGgoupsWithLessOrEqualsStudents(quant);
-            }
-
-            if (command.equals("b")) {
+                logger.info("Enter number of students: ");
+                int quant = scan.nextInt();
+                StudentDAO.findGgoupsWithLessOrEqualsStudents(quant);
+            } else if (command.equals("b")) {
                 logger.info("b");
-            }
-
-            if (command.equals("c")) {
+            } else if (command.equals("c")) {
                 logger.info("c");
-            }
-
-            if (command.equals("d")) {
+            } else if (command.equals("d")) {
                 logger.info("d");
-            }
-
-            if (command.equals("e")) {
+            } else if (command.equals("e")) {
                 logger.info("e");
-            }
-
-            if (command.equals("f")) {
+            } else if (command.equals("f")) {
                 logger.info("f");
             }
-        }
-
+        } while (!command.equalsIgnoreCase("q"));
         scan.close();
     }
 

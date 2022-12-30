@@ -7,7 +7,7 @@ import ua.foxminded.schoolconsoleapp.dbconnection.DataBaseConnection;
 
 public class StudentDAO {
 
-    public void findGgoupsWithLessOrEqualsStudents(int number) {
+    public static void findGgoupsWithLessOrEqualsStudents(int number) {
         String query = "SELECT group_id, COUNT (*) FROM school.students GROUP BY group_id HAVING COUNT(*)<=" + number
                 + ";";
 
