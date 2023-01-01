@@ -16,19 +16,18 @@ public class ConsoleMenu {
         School school = new School();
         school.startSchoolApp();
         SchoolDAO student = new SchoolDAO();
-        
+
         String command = "";
         String menu = "a. Find all groups with less or equal students’ number\n"
                 + "b. Find all students related to the course with the given name\n" + "c. Add a new student\n"
                 + "d. Delete a student by the STUDENT_ID\n" + "e. Add a student to the course (from a list)\n"
-                + "f. Remove the student from one of their courses\n";
+                + "f. Remove the student from one of their courses\n" + "q. Quit\n";
         logger.info(menu);
 
         while (!command.equalsIgnoreCase("q")) {
             command = scan.nextLine();
 
             if (command.equals("a")) {
- 
                 logger.info("Enter number of students: ");
                 int quant = scan.nextInt();
 
@@ -39,7 +38,9 @@ public class ConsoleMenu {
                 }
 
             } else if (command.equals("b")) {
-                logger.info("b");
+                logger.info("Enter course name: ");
+                String courseName = scan.nextLine();
+                student.findStudentsRelatedToCourse(courseName);
             } else if (command.equals("c")) {
                 logger.info("c");
             } else if (command.equals("d")) {
