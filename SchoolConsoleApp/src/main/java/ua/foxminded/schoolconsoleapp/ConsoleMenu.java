@@ -1,9 +1,8 @@
 package ua.foxminded.schoolconsoleapp;
 
 import java.util.Scanner;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 import ua.foxminded.schoolconsoleapp.dao.SchoolDAO;
+import ua.foxminded.schoolconsoleapp.dao.Student;
 
 public class ConsoleMenu {
 
@@ -33,7 +32,18 @@ public class ConsoleMenu {
                 String courseName = scan.nextLine();
                 schoolDAO.findStudentsRelatedToCourse(courseName);
             } else if (command.equals("c")) {
-                System.out.println("c");
+                System.out.println("Enter student name: ");
+                String firstName = scan.nextLine();
+                
+                System.out.println("Enter student last name: ");
+                String lastName = scan.nextLine();
+                
+                System.out.println("Enter group id: ");
+                int groupId = scan.nextInt();
+                
+                Student student = new Student(groupId, firstName, lastName);
+                schoolDAO.addStudent(student);
+
             } else if (command.equals("d")) {
                 System.out.println("d");
             } else if (command.equals("e")) {

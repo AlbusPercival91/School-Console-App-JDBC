@@ -1,34 +1,45 @@
 package ua.foxminded.schoolconsoleapp.dao;
 
 public class Student {
-    private String studentName;
-    private String studentSurname;
+    private int groupId;
+    private String firstName;
+    private String lastName;
 
-    public Student(String studentName, String studentSurname) {
+    public Student(int groupId, String firstName, String lastName) {
         super();
-        this.studentName = studentName;
-        this.studentSurname = studentSurname;
+        this.groupId = groupId;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
-    public String getStudentName() {
-        return studentName;
+    public int getGroupId() {
+        return groupId;
     }
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
 
-    public String getStudentSurname() {
-        return studentSurname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setStudentSurname(String studentSurname) {
-        this.studentSurname = studentSurname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     @Override
     public String toString() {
-        return "Student [studentName=" + studentName + ", studentSurname=" + studentSurname + "]";
+        return "Student [groupId=" + groupId + ", studentName=" + firstName + ", studentSurname=" + lastName
+                + "]";
     }
 
 }

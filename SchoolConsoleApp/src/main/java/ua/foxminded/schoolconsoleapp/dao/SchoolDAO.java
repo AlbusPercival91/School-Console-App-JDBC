@@ -1,6 +1,7 @@
 package ua.foxminded.schoolconsoleapp.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -50,6 +51,19 @@ public class SchoolDAO {
             while (set.next()) {
                 System.out.println(set.getString(1) + set.getString(2));
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addStudent(Student st) {
+        String query = "insert into school.students(group_id, first_name, last_name) values(?,?,?)";
+        try (Connection connection = DataBaseConnection.connect();
+                PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, st.getGroupId());
+            statement.setString(2, st.getFirstName());
+            statement.setString(3, st.getLastName());
+            statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
