@@ -39,7 +39,7 @@ public class SchoolDAO {
     }
 
     public void findStudentsRelatedToCourse(String courseName) {
-        String query = "SELECT first_name, last_name\n" + "  FROM school.students\n"
+        String query = "SELECT first_name, last_name\n" + " FROM school.students\n"
                 + "  JOIN school.students_courses_checkouts \n"
                 + "    ON school.students_courses_checkouts.student_id = school.students.student_id\n"
                 + "  JOIN school.course\n"
