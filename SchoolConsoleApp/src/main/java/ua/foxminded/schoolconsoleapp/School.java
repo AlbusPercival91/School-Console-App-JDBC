@@ -21,7 +21,9 @@ public class School {
 //        course.autoCreate();
 //
 //        CourseStudentTestDAO courseStudent = new CourseStudentTestDAO();
-//        courseStudent.autoCreate();     
+//        courseStudent.autoCreate();  
+        
+        
     }
 
 }

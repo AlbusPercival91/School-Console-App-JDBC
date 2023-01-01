@@ -6,51 +6,42 @@ import org.apache.log4j.PropertyConfigurator;
 import ua.foxminded.schoolconsoleapp.dao.SchoolDAO;
 
 public class ConsoleMenu {
-    static Logger logger = Logger.getLogger(ConsoleMenu.class);
 
     public void launchMenu() {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        PropertyConfigurator.configure(classLoader.getResource("log4j.properties "));
         Scanner scan = new Scanner(System.in);
 
         School school = new School();
         school.startSchoolApp();
-        SchoolDAO student = new SchoolDAO();
+        SchoolDAO schoolDAO = new SchoolDAO();
 
         String command = "";
         String menu = "a. Find all groups with less or equal students’ number\n"
                 + "b. Find all students related to the course with the given name\n" + "c. Add a new student\n"
                 + "d. Delete a student by the STUDENT_ID\n" + "e. Add a student to the course (from a list)\n"
                 + "f. Remove the student from one of their courses\n" + "q. Quit\n";
-        logger.info(menu);
+        System.out.println(menu);
 
         while (!command.equalsIgnoreCase("q")) {
             command = scan.nextLine();
 
             if (command.equals("a")) {
-                logger.info("Enter number of students: ");
+                System.out.println("Enter number of students: ");
                 int quant = scan.nextInt();
-
-                if (!student.findGgoupsWithLessOrEqualsStudents(quant).isEmpty()) {
-                    student.findGgoupsWithLessOrEqualsStudents(quant).forEach(logger::info);
-                } else {
-                    logger.info("no such groups found");
-                }
-
+                schoolDAO.findGgoupsWithLessOrEqualsStudents(quant);
             } else if (command.equals("b")) {
-                logger.info("Enter course name: ");
+                System.out.println("Enter course name: ");
                 String courseName = scan.nextLine();
-                student.findStudentsRelatedToCourse(courseName);
+                schoolDAO.findStudentsRelatedToCourse(courseName);
             } else if (command.equals("c")) {
-                logger.info("c");
+                System.out.println("c");
             } else if (command.equals("d")) {
-                logger.info("d");
+                System.out.println("d");
             } else if (command.equals("e")) {
-                logger.info("e");
+                System.out.println("e");
             } else if (command.equals("f")) {
-                logger.info("f");
+                System.out.println("f");
             } else {
-                logger.info("\n" + menu);
+                System.out.println("\n" + menu);
             }
         }
         scan.close();
