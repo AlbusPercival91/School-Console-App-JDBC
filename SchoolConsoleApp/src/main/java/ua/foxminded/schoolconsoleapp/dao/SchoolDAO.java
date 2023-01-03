@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import ua.foxminded.schoolconsoleapp.Student;
 import ua.foxminded.schoolconsoleapp.dbconnection.DataBaseConnection;
 
 public class SchoolDAO {

@@ -2,7 +2,7 @@ package ua.foxminded.schoolconsoleapp;
 
 import java.util.Scanner;
 import ua.foxminded.schoolconsoleapp.dao.SchoolDAO;
-import ua.foxminded.schoolconsoleapp.dao.Student;
+
 
 public class ConsoleMenu {
 

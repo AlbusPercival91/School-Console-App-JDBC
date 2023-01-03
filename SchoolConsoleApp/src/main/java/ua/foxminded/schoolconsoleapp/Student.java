@@ -1,4 +1,4 @@
-package ua.foxminded.schoolconsoleapp.dao;
+package ua.foxminded.schoolconsoleapp;
 
 public class Student {
     private Integer groupId;
