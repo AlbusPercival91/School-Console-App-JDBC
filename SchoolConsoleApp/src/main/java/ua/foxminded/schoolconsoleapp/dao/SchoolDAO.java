@@ -3,6 +3,7 @@ package ua.foxminded.schoolconsoleapp.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,11 @@ import ua.foxminded.schoolconsoleapp.dbconnection.DataBaseConnection;
 
 public class SchoolDAO {
 
-    public void findGgoupsWithLessOrEqualsStudents(int number) {
+    private SchoolDAO() {
+
+    }
+
+    public static void findGgoupsWithLessOrEqualsStudents(int number) {
         List<String> groupID = new ArrayList<>();
         String studentCountQuery = "SELECT group_id, COUNT (*) FROM school.students GROUP BY group_id HAVING COUNT(*)<="
                 + number + ";";
@@ -32,12 +37,12 @@ public class SchoolDAO {
                     System.out.println(groupNameSet.getString(2));
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void findStudentsRelatedToCourse(String courseName) {
+    public static void findStudentsRelatedToCourse(String courseName) {
         String query = "SELECT first_name, last_name\n" + " FROM school.students\n"
                 + "  JOIN school.students_courses_checkouts \n"
                 + "    ON school.students_courses_checkouts.student_id = school.students.student_id\n"
@@ -51,20 +56,30 @@ public class SchoolDAO {
             while (set.next()) {
                 System.out.println(set.getString(1) + set.getString(2));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void addStudent(Student st) {
+    public static void addNewStudent(Student student) {
         String query = "insert into school.students(group_id, first_name, last_name) values(?,?,?)";
         try (Connection connection = DataBaseConnection.connect();
                 PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, st.getGroupId());
-            statement.setString(2, st.getFirstName());
-            statement.setString(3, st.getLastName());
+            statement.setObject(1, student.getGroupId());
+            statement.setString(2, student.getFirstName());
+            statement.setString(3, student.getLastName());
             statement.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteStudentByID(int id) {
+        String query = "delete from school.students where student_id = " + id + ";";
+        try (Connection connection = DataBaseConnection.connect();
+                PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.executeUpdate();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

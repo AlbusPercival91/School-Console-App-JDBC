@@ -11,7 +11,6 @@ public class ConsoleMenu {
 
         School school = new School();
         school.startSchoolApp();
-        SchoolDAO schoolDAO = new SchoolDAO();
 
         String command = "";
         String menu = "a. Find all groups with less or equal students’ number\n"
@@ -26,26 +25,28 @@ public class ConsoleMenu {
             if (command.equals("a")) {
                 System.out.println("Enter number of students: ");
                 int quant = scan.nextInt();
-                schoolDAO.findGgoupsWithLessOrEqualsStudents(quant);
+                SchoolDAO.findGgoupsWithLessOrEqualsStudents(quant);
             } else if (command.equals("b")) {
                 System.out.println("Enter course name: ");
                 String courseName = scan.nextLine();
-                schoolDAO.findStudentsRelatedToCourse(courseName);
+                SchoolDAO.findStudentsRelatedToCourse(courseName);
             } else if (command.equals("c")) {
                 System.out.println("Enter student name: ");
                 String firstName = scan.nextLine();
-                
+
                 System.out.println("Enter student last name: ");
                 String lastName = scan.nextLine();
-                
-                System.out.println("Enter group id: ");
-                int groupId = scan.nextInt();
-                
-                Student student = new Student(groupId, firstName, lastName);
-                schoolDAO.addStudent(student);
 
+                System.out.println("Enter group id: ");
+                Integer groupId = scan.nextInt();
+
+                addStudent(firstName, lastName, groupId);
+                System.out.println("Student inserted to DB");
             } else if (command.equals("d")) {
-                System.out.println("d");
+                System.out.println("Enter Student's ID: ");
+                int studentId = scan.nextInt();
+                SchoolDAO.deleteStudentByID(studentId);
+                System.out.println("Student deleted from DB");
             } else if (command.equals("e")) {
                 System.out.println("e");
             } else if (command.equals("f")) {
@@ -55,6 +56,19 @@ public class ConsoleMenu {
             }
         }
         scan.close();
+    }
+
+    public void addStudent(String firstName, String lastName, Integer groupId) {
+        if (!firstName.isEmpty() && !lastName.isEmpty() && groupId >= 0 && groupId <= 10) {
+
+            if (groupId == 0) {
+                groupId = null;
+            }
+            Student student = new Student(groupId, firstName, lastName);
+            SchoolDAO.addNewStudent(student);
+        } else {
+            System.out.println("wrong");
+        }
     }
 
 }
