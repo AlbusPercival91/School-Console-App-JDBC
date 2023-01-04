@@ -70,6 +70,7 @@ public class SchoolDAO {
             statement.setString(2, student.getFirstName());
             statement.setString(3, student.getLastName());
             statement.executeUpdate();
+            System.out.println(student.toString() + " added to DB");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -79,7 +80,8 @@ public class SchoolDAO {
         String query = "delete from school.students where student_id = " + id + ";";
         try (Connection connection = DataBaseConnection.connect();
                 PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.executeUpdate();
+            int rowsDeleted = statement.executeUpdate();
+            System.out.println(rowsDeleted + " rows deleted");
         } catch (SQLException e) {
             e.printStackTrace();
         }
