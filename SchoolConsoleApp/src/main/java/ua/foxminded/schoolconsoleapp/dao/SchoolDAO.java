@@ -6,7 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import ua.foxminded.schoolconsoleapp.Student;
 import ua.foxminded.schoolconsoleapp.dbconnection.DataBaseConnection;
 
@@ -101,6 +104,22 @@ public class SchoolDAO {
             e.printStackTrace();
         }
         return courses;
+    }
+
+    public static Set<Integer> getStudentID() {
+        Set<Integer> studentId = new HashSet<>();
+        String query = "select student_id from school.students;";
+
+        try (Connection connection = DataBaseConnection.connect(); Statement statement = connection.createStatement()) {
+            ResultSet set = statement.executeQuery(query);
+
+            while (set.next()) {
+                studentId.add(set.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return studentId;
     }
 
     public static void addStudentToTheCourse(Integer studentId, String courseName) {

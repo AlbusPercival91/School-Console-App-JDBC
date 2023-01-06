@@ -1,11 +1,9 @@
 package ua.foxminded.schoolconsoleapp.testdata;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
@@ -14,8 +12,8 @@ import java.util.stream.IntStream;
 public class CourseMaker {
     StudentMaker student = new StudentMaker();
 
-    public List<String> generateCourses() {
-        return new ArrayList<>(Arrays.asList("Mathematics", "English", "Life Science", "Physical Science", "Geography",
+    public Set<String> generateCourses() {
+        return new HashSet<>(Arrays.asList("Mathematics", "English", "Life Science", "Physical Science", "Geography",
                 "Computer Science", "History", "Sports", "Art", "Literature"));
     }
 
