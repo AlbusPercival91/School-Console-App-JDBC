@@ -1,7 +1,5 @@
 package ua.foxminded.schoolconsoleapp;
 
-import ua.foxminded.schoolconsoleapp.dao.SchoolDAO;
-
 public class Student {
     private Integer groupId;
     private String firstName;
@@ -33,18 +31,5 @@ public class Student {
     @Override
     public String toString() {
         return "Student group ID = " + groupId + ", first name = " + firstName + ", last name = " + lastName;
-    }
-
-    public static void addStudent(String firstName, String lastName, Integer groupId) {
-        if (!firstName.isEmpty() && !lastName.isEmpty() && groupId >= 0 && groupId <= 10) {
-
-            if (groupId == 0) {
-                groupId = null;
-            }
-            Student student = new Student(groupId, firstName, lastName);
-            SchoolDAO.addNewStudent(student);
-        } else {
-            System.out.println("wrong");
-        }
     }
 }

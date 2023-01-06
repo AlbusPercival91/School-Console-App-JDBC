@@ -90,22 +90,6 @@ public class SchoolDAO {
         }
     }
 
-    public static List<String> getCourseList() {
-        List<String> courses = new ArrayList<>();
-        String query = "select*from school.course;";
-
-        try (Connection connection = DataBaseConnection.connect(); Statement statement = connection.createStatement()) {
-            ResultSet set = statement.executeQuery(query);
-
-            while (set.next()) {
-                courses.add(set.getString(2));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return courses;
-    }
-
     public static Set<Integer> getStudentID() {
         Set<Integer> studentId = new HashSet<>();
         String query = "select student_id from school.students;";

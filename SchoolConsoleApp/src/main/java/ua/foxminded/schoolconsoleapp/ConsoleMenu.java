@@ -18,7 +18,6 @@ public class ConsoleMenu {
                 + "d. Delete a student by the STUDENT_ID\n" + "e. Add a student to the course (from a list)\n"
                 + "f. Remove the student from one of their courses\n" + "q. Quit\n";
         System.out.println("Welcome to School console application. Please choose options below:\n\n" + menu);
-        
 
         while (!command.equalsIgnoreCase("q")) {
             command = scan.nextLine();
@@ -86,10 +85,7 @@ public class ConsoleMenu {
 
                     if (SchoolDAO.getStudentID().contains(studentId)) {
                         System.out.println("Please choose the course from List\n");
-
-                        for (String s : SchoolDAO.getCourseList()) {
-                            System.out.println(s);
-                        }
+                        course.generateCourses().forEach(System.out::println);
                         String courseName = scan.next();
 
                         if (course.generateCourses().contains(courseName)) {
