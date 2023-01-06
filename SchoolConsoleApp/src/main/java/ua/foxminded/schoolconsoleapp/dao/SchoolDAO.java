@@ -87,4 +87,33 @@ public class SchoolDAO {
         }
     }
 
+    public static List<String> getCourseList() {
+        List<String> courses = new ArrayList<>();
+        String query = "select*from school.course;";
+
+        try (Connection connection = DataBaseConnection.connect(); Statement statement = connection.createStatement()) {
+            ResultSet set = statement.executeQuery(query);
+
+            while (set.next()) {
+                courses.add(set.getString(2));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return courses;
+    }
+
+    public static void addStudentToTheCourse(Integer studentId, String courseName) {
+        String query = "INSERT INTO school.students_courses_checkouts(student_id, course_id)\n" + " SELECT\n"
+                + "     (SELECT student_id FROM school.students WHERE student_id=" + studentId + "),\n"
+                + "     (SELECT course_id FROM school.course WHERE course_name = '" + courseName + "');";
+        try (Connection connection = DataBaseConnection.connect();
+                PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

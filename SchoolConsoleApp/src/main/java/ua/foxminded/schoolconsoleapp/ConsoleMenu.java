@@ -24,12 +24,12 @@ public class ConsoleMenu {
             if (command.equals("a")) {
                 System.out.println("Enter number of students: ");
                 int quant = scan.nextInt();
-                
+
                 SchoolDAO.findGgoupsWithLessOrEqualsStudents(quant);
             } else if (command.equals("b")) {
                 System.out.println("Enter course name: ");
                 String courseName = scan.nextLine();
-                
+
                 SchoolDAO.findStudentsRelatedToCourse(courseName);
                 System.out.println("\n" + menu);
             } else if (command.equals("c")) {
@@ -51,7 +51,17 @@ public class ConsoleMenu {
 
                 SchoolDAO.deleteStudentByID(studentId);
             } else if (command.equals("e")) {
-                System.out.println("e");
+                System.out.println("Enter Student's ID: ");
+                Integer studentId = scan.nextInt();
+                System.out.println("Student ID " + studentId + " selected" + " Please choose the course from List\n");
+
+                for (String s : SchoolDAO.getCourseList()) {
+                    System.out.println(s);
+                }
+          
+                String courseName = scan.next();
+                SchoolDAO.addStudentToTheCourse(studentId, courseName);
+
             } else if (command.equals("f")) {
                 System.out.println("f");
             } else if (command.equals("q")) {

@@ -47,8 +47,8 @@ CREATE TABLE IF NOT EXISTS school.course(
 
 CREATE TABLE IF NOT EXISTS school.students_courses_checkouts(
     checkouts_id SERIAL,
-    student_id integer DEFAULT nextval('school.student_seq'::regclass),
-    course_id integer DEFAULT nextval('school.course_seq'::regclass),
+    student_id integer DEFAULT nextval('school.student_seq'::regclass) NOT NULL,
+    course_id integer DEFAULT nextval('school.course_seq'::regclass) NOT NULL,
     CONSTRAINT students_courses_checkouts_pkey PRIMARY KEY (checkouts_id) 
 );
 

@@ -47,5 +47,4 @@ public class Student {
             System.out.println("wrong");
         }
     }
-
 }
