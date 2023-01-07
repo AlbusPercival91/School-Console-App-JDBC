@@ -112,15 +112,23 @@ public class SchoolDAO {
                 + "     (SELECT course_id FROM school.course WHERE course_name = '" + courseName + "');";
         try (Connection connection = DataBaseConnection.connect();
                 PreparedStatement statement = connection.prepareStatement(query)) {
-
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public static void removeStudentFromCourse() {
-
+    public static void removeStudentFromCourse(Integer studentId, String courseName) {
+        String query = "DELETE \n" + "FROM school.students_courses_checkouts\n" + "WHERE student_id='" + studentId
+                + "' AND \n" + "      course_id IN (SELECT course_id \n" + "FROM school.course \n"
+                + "WHERE course_name = '" + courseName + "');";
+        try (Connection connection = DataBaseConnection.connect();
+                PreparedStatement statement = connection.prepareStatement(query)) {
+            int rowsDeleted = statement.executeUpdate();
+            System.out.println(rowsDeleted + " rows deleted");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

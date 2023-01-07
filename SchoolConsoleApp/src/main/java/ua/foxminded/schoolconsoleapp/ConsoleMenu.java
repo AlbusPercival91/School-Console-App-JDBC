@@ -20,19 +20,19 @@ public class ConsoleMenu {
         while (!command.equalsIgnoreCase("q")) {
             command = scan.nextLine();
 
-            if (command.equals("a")) {
+            if (command.equalsIgnoreCase("a")) {
                 cmf.findGgoupsWithLessOrEqualsStudentsFacade(scan);
-            } else if (command.equals("b")) {
+            } else if (command.equalsIgnoreCase("b")) {
                 cmf.findStudentsRelatedToCourseFacade(scan, menu);
-            } else if (command.equals("c")) {
+            } else if (command.equalsIgnoreCase("c")) {
                 cmf.addNewStudentFacade(scan);
-            } else if (command.equals("d")) {
+            } else if (command.equalsIgnoreCase("d")) {
                 cmf.deleteStudentByIdFacade(scan);
-            } else if (command.equals("e")) {
+            } else if (command.equalsIgnoreCase("e")) {
                 cmf.addStudentToTheCourseFacade(scan);
-            } else if (command.equals("f")) {
+            } else if (command.equalsIgnoreCase("f")) {
                 cmf.removeStudentFromCourseFacade(scan);
-            } else if (command.equals("q")) {
+            } else if (command.equalsIgnoreCase("q")) {
                 System.out.println("exit - OK!");
             } else {
                 System.out.println("\n" + menu);

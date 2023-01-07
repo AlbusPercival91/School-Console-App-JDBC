@@ -1,45 +1,57 @@
 package ua.foxminded.schoolconsoleapp;
 
 import java.util.Scanner;
-
 import ua.foxminded.schoolconsoleapp.dao.SchoolDAO;
 import ua.foxminded.schoolconsoleapp.testdata.CourseMaker;
 
 public class ConsoleMenuFacade {
+    private static final String DIGITS_REQUIRED = "Digits required!";
+    private static final String ENTER_ID = "Enter Student's ID: ";
+    private static final String WRONG_COURSE = "Wrong course name!";
+    private static final String NUMBER_OF_STUDENTS = "Enter number of students: ";
+    private static final String COURSE_NAME = "Enter course name: ";
+    private static final String STUDENT_NAME = "Enter student name: ";
+    private static final String STUDENT_LAST_NAME = "Enter student last name: ";
+    private static final String GROUP_ID = "Enter group id (if student don't have group enter 0): ";
+    private static final String STUDENT_ID_NOT_EXIST = "Student ID not exist!";
+    private static final String COURSE_LIST = "Please choose the course from List\n";
+    private static final String GROUP_ID_NOTE = "Group ID should be from 0 to 10.";
+    private static final String GROUP_ID_NOTE2 = "Wrong id format, digits required!";
+    private static final String EMPTY_NOTE = "Empty entrance!";
     CourseMaker course = new CourseMaker();
 
     public void findGgoupsWithLessOrEqualsStudentsFacade(Scanner scan) {
-        System.out.println("Enter number of students: ");
+        System.out.println(NUMBER_OF_STUDENTS);
 
         if (scan.hasNextInt()) {
             int quant = scan.nextInt();
             SchoolDAO.findGgoupsWithLessOrEqualsStudents(quant);
         } else {
-            System.out.println("Digits required!");
+            System.out.println(DIGITS_REQUIRED);
         }
     }
 
     public void findStudentsRelatedToCourseFacade(Scanner scan, String menu) {
-        System.out.println("Enter course name: ");
+        System.out.println(COURSE_NAME);
         String courseName = scan.nextLine();
 
         if (course.generateCourses().contains(courseName)) {
             SchoolDAO.findStudentsRelatedToCourse(courseName);
             System.out.println("\n" + menu);
         } else {
-            System.out.println("Wrong course name!");
+            System.out.println(WRONG_COURSE);
             System.out.println("\n" + menu);
         }
     }
 
     public void addNewStudentFacade(Scanner scan) {
-        System.out.println("Enter student name: ");
+        System.out.println(STUDENT_NAME);
         String firstName = scan.nextLine();
-        System.out.println("Enter student last name: ");
+        System.out.println(STUDENT_LAST_NAME);
         String lastName = scan.nextLine();
 
         if (!firstName.isEmpty() || !lastName.isEmpty()) {
-            System.out.println("Enter group id (if student don't have group enter 0): ");
+            System.out.println(GROUP_ID);
 
             if (scan.hasNextInt()) {
                 Integer groupId = scan.nextInt();
@@ -52,30 +64,30 @@ public class ConsoleMenuFacade {
                     Student student = new Student(groupId, firstName, lastName);
                     SchoolDAO.addNewStudent(student);
                 } else {
-                    System.out.println("Group ID should be from 0 to 10.");
+                    System.out.println(GROUP_ID_NOTE);
                 }
             } else {
-                System.out.println("Wrong id format, digits required!");
+                System.out.println(GROUP_ID_NOTE2);
             }
         } else {
-            System.out.println("Empty entrance!");
+            System.out.println(EMPTY_NOTE);
         }
     }
 
     public void deleteStudentByIdFacade(Scanner scan) {
-        System.out.println("Enter Student's ID: ");
+        System.out.println(ENTER_ID);
         int studentId = scan.nextInt();
         SchoolDAO.deleteStudentByID(studentId);
     }
 
     public void addStudentToTheCourseFacade(Scanner scan) {
-        System.out.println("Enter Student's ID: ");
+        System.out.println(ENTER_ID);
 
         if (scan.hasNextInt()) {
             Integer studentId = scan.nextInt();
 
             if (SchoolDAO.getStudentID().contains(studentId)) {
-                System.out.println("Please choose the course from List\n");
+                System.out.println(COURSE_LIST);
                 course.generateCourses().forEach(System.out::println);
                 String courseName = scan.next();
 
@@ -83,18 +95,38 @@ public class ConsoleMenuFacade {
                     SchoolDAO.addStudentToTheCourse(studentId, courseName);
                     System.out.println("Student with ID: " + studentId + " assigned to the course: " + courseName);
                 } else {
-                    System.out.println("Wrong course name!");
+                    System.out.println(WRONG_COURSE);
                 }
             } else {
-                System.out.println("Student ID not exist!");
+                System.out.println(STUDENT_ID_NOT_EXIST);
             }
         } else {
-            System.out.println("Digits required!");
+            System.out.println(DIGITS_REQUIRED);
         }
     }
 
     public void removeStudentFromCourseFacade(Scanner scan) {
+        System.out.println(ENTER_ID);
 
+        if (scan.hasNextInt()) {
+            Integer studentId = scan.nextInt();
+
+            if (SchoolDAO.getStudentID().contains(studentId)) {
+                System.out.println(COURSE_LIST);
+                course.generateCourses().forEach(System.out::println);
+                String courseName = scan.next();
+
+                if (course.generateCourses().contains(courseName)) {
+                    SchoolDAO.removeStudentFromCourse(studentId, courseName);
+                } else {
+                    System.out.println(WRONG_COURSE);
+                }
+            } else {
+                System.out.println(STUDENT_ID_NOT_EXIST);
+            }
+        } else {
+            System.out.println(DIGITS_REQUIRED);
+        }
     }
 
 }
