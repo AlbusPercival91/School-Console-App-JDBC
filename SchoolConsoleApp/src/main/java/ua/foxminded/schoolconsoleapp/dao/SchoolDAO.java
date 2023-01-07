@@ -119,4 +119,8 @@ public class SchoolDAO {
         }
     }
 
+    public static void removeStudentFromCourse() {
+
+    }
+
 }

@@ -93,4 +93,8 @@ public class ConsoleMenuFacade {
         }
     }
 
+    public void removeStudentFromCourseFacade(Scanner scan) {
+
+    }
+
 }

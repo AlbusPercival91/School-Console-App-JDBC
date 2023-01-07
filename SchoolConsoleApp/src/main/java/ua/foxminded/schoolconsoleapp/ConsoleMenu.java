@@ -31,7 +31,7 @@ public class ConsoleMenu {
             } else if (command.equals("e")) {
                 cmf.addStudentToTheCourseFacade(scan);
             } else if (command.equals("f")) {
-                System.out.println("f");
+                cmf.removeStudentFromCourseFacade(scan);
             } else if (command.equals("q")) {
                 System.out.println("exit - OK!");
             } else {
