@@ -5,7 +5,7 @@ import ua.foxminded.schoolconsoleapp.dbconnection.InitialTables;
 
 public class School {
 
-    public void startSchoolApp() {
+    public void createSchoolData() {
 //        InitialTables.createTables("tables.sql");
 //
 //        TestDataDAO testData = new TestDataDAO();

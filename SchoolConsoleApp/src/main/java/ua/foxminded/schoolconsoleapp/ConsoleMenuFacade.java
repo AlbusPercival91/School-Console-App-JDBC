@@ -5,8 +5,9 @@ import ua.foxminded.schoolconsoleapp.dao.SchoolDAO;
 import ua.foxminded.schoolconsoleapp.testdata.CourseMaker;
 
 public class ConsoleMenuFacade {
+    CourseMaker course = new CourseMaker();
     private static final String DIGITS_REQUIRED = "Digits required!";
-    private static final String ENTER_ID = "Enter Student's ID: ";
+    private static final String STUDENT_ID = "Enter Student's ID: ";
     private static final String WRONG_COURSE = "Wrong course name!";
     private static final String NUMBER_OF_STUDENTS = "Enter number of students: ";
     private static final String COURSE_NAME = "Enter course name: ";
@@ -18,7 +19,6 @@ public class ConsoleMenuFacade {
     private static final String GROUP_ID_NOTE = "Group ID should be from 0 to 10.";
     private static final String GROUP_ID_NOTE2 = "Wrong id format, digits required!";
     private static final String EMPTY_NOTE = "Empty entrance!";
-    CourseMaker course = new CourseMaker();
 
     public void findGgoupsWithLessOrEqualsStudentsFacade(Scanner scan) {
         System.out.println(NUMBER_OF_STUDENTS);
@@ -75,13 +75,13 @@ public class ConsoleMenuFacade {
     }
 
     public void deleteStudentByIdFacade(Scanner scan) {
-        System.out.println(ENTER_ID);
+        System.out.println(STUDENT_ID);
         int studentId = scan.nextInt();
         SchoolDAO.deleteStudentByID(studentId);
     }
 
     public void addStudentToTheCourseFacade(Scanner scan) {
-        System.out.println(ENTER_ID);
+        System.out.println(STUDENT_ID);
 
         if (scan.hasNextInt()) {
             Integer studentId = scan.nextInt();
@@ -106,7 +106,7 @@ public class ConsoleMenuFacade {
     }
 
     public void removeStudentFromCourseFacade(Scanner scan) {
-        System.out.println(ENTER_ID);
+        System.out.println(STUDENT_ID);
 
         if (scan.hasNextInt()) {
             Integer studentId = scan.nextInt();
