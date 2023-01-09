@@ -27,5 +27,4 @@ class StudentMakerTest {
     void studentGenerationWithNamesAndSurnames_ShouldBeEquals(int expected, int actual) {
         assertEquals(expected, actual);
     }
-
 }
