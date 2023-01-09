@@ -49,7 +49,7 @@ class CourseMakerTest {
     static Stream<Arguments> expectedAndActualStreamProvider() {
         CourseMaker course = new CourseMaker();
         return Stream.of(arguments(generateCourses_ExpectedSet, course.generateCourses()),
-                arguments(assignCourseId_fromOneToThreePerStudentExpected(), true));
+                arguments(true, assignCourseId_fromOneToThreePerStudentExpected()));
     }
 
     @ParameterizedTest
