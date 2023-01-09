@@ -14,5 +14,4 @@ public class School {
 //        testData.createCourse();
 //        testData.createCourseStudentRelation();
     }
-
 }

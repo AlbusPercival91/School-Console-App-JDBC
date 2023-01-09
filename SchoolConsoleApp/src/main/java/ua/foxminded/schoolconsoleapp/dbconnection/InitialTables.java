@@ -8,7 +8,7 @@ import java.io.Reader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.apache.ibatis.jdbc.ScriptRunner;
-import org.apache.log4j.PropertyConfigurator;
+import org.apache.ibatis.ognl.PropertyAccessor;
 
 public class InitialTables {
 
@@ -18,7 +18,7 @@ public class InitialTables {
 
     public static void createTables(String fileName) {
         try (Connection connection = DataBaseConnection.connect();
-                InputStream iStream = PropertyConfigurator.class.getResourceAsStream("/" + fileName)) {
+                InputStream iStream = PropertyAccessor.class.getResourceAsStream("/" + fileName)) {
             ScriptRunner runner = new ScriptRunner(connection);
             Reader reader = new BufferedReader(new InputStreamReader(iStream));
             runner.setLogWriter(null);
