@@ -19,7 +19,7 @@ public class TestDataDAO {
         String query = "INSERT INTO school.students(group_id, first_name, last_name) " + "VALUES(?,?,?)";
         int i = 0;
 
-        try (Connection connection = DataBaseConnection.connect();
+        try (Connection connection = DataBaseConnection.getConnection();
                 PreparedStatement statement = connection.prepareStatement(query)) {
 
             for (String s : student.generateStudents(student.generateNames(20), student.generateSurnames(20))) {
@@ -36,7 +36,7 @@ public class TestDataDAO {
 
     public void createGroup() {
         String query = "INSERT INTO school.group(group_name) " + "VALUES(?)";
-        try (Connection connection = DataBaseConnection.connect();
+        try (Connection connection = DataBaseConnection.getConnection();
                 PreparedStatement statement = connection.prepareStatement(query)) {
 
             for (String s : group.generateGroups()) {
@@ -51,7 +51,7 @@ public class TestDataDAO {
 
     public void createCourse() {
         String query = "INSERT INTO school.course(course_name, course_description) " + "VALUES(?,?)";
-        try (Connection connection = DataBaseConnection.connect();
+        try (Connection connection = DataBaseConnection.getConnection();
                 PreparedStatement statement = connection.prepareStatement(query)) {
 
             for (String s : course.generateCourses()) {
@@ -68,7 +68,7 @@ public class TestDataDAO {
     public void createCourseStudentRelation() {
         String query = "INSERT INTO school.students_courses_checkouts(student_id,course_id) " + "VALUES(?,?)";
 
-        try (Connection connection = DataBaseConnection.connect();
+        try (Connection connection = DataBaseConnection.getConnection();
                 PreparedStatement statement = connection.prepareStatement(query)) {
 
             for (Map.Entry<Integer, Set<Integer>> entry : course.assignCourseId().entrySet()) {

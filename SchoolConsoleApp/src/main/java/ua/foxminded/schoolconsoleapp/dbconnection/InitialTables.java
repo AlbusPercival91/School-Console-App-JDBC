@@ -17,7 +17,7 @@ public class InitialTables {
     }
 
     public static void createTables(String fileName) {
-        try (Connection connection = DataBaseConnection.connect();
+        try (Connection connection = DataBaseConnection.getConnection();
                 InputStream iStream = PropertyAccessor.class.getResourceAsStream("/" + fileName)) {
             ScriptRunner runner = new ScriptRunner(connection);
             Reader reader = new BufferedReader(new InputStreamReader(iStream));
@@ -26,7 +26,5 @@ public class InitialTables {
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
-
     }
-
 }
