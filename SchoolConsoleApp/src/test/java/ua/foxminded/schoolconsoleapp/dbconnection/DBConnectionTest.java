@@ -5,12 +5,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
 
-class DataBaseConnectionTest {
+class DBConnectionTest {
 
     @Test
     void testGetConnection() throws SQLException {
-        Connection con = DBConnection.getConnection(DBConnection.getDriverWithHost(), DBConnection.getDbUser(),
-                DBConnection.getDbPassword());
+        Connection con = DBConnection.getConnection("jdbc:h2:~/test", "", "");
         assertNotNull(con);
         con.close();
     }

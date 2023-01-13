@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DBConnection {
     static Connection connection;
-    private static final String DRIVER_WITH_HOST = "jdbc:postgresql://localhost:5432/school";
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/school";
     private static final String DB_USER = "school_admin";
     private static final String DB_PASSWORD = "1234";
 
@@ -14,17 +14,17 @@ public class DBConnection {
 
     }
 
-    public static Connection getConnection(String driverWithHost, String user, String password) {
+    public static Connection getConnection(String dbUrl, String dbUser, String dbPwd) {
         try {
-            connection = DriverManager.getConnection(driverWithHost, user, password);
+            connection = DriverManager.getConnection(dbUrl, dbUser, dbPwd);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return connection;
     }
 
-    public static String getDriverWithHost() {
-        return DRIVER_WITH_HOST;
+    public static String getDbUrl() {
+        return DB_URL;
     }
 
     public static String getDbUser() {

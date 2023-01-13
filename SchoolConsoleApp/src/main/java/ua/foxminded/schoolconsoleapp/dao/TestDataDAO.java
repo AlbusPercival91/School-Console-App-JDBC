@@ -19,7 +19,7 @@ public class TestDataDAO {
         String query = "INSERT INTO school.students(group_id, first_name, last_name) " + "VALUES(?,?,?)";
         int i = 0;
 
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDriverWithHost(),
+        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(),
                 DBConnection.getDbUser(), DBConnection.getDbPassword());
                 PreparedStatement statement = connection.prepareStatement(query)) {
 
@@ -37,7 +37,7 @@ public class TestDataDAO {
 
     public void createGroup() {
         String query = "INSERT INTO school.group(group_name) " + "VALUES(?)";
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDriverWithHost(),
+        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(),
                 DBConnection.getDbUser(), DBConnection.getDbPassword());
                 PreparedStatement statement = connection.prepareStatement(query)) {
 
@@ -53,7 +53,7 @@ public class TestDataDAO {
 
     public void createCourse() {
         String query = "INSERT INTO school.course(course_name, course_description) " + "VALUES(?,?)";
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDriverWithHost(),
+        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(),
                 DBConnection.getDbUser(), DBConnection.getDbPassword());
                 PreparedStatement statement = connection.prepareStatement(query)) {
 
@@ -71,7 +71,7 @@ public class TestDataDAO {
     public void createCourseStudentRelation() {
         String query = "INSERT INTO school.students_courses_checkouts(student_id,course_id) " + "VALUES(?,?)";
 
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDriverWithHost(),
+        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(),
                 DBConnection.getDbUser(), DBConnection.getDbPassword());
                 PreparedStatement statement = connection.prepareStatement(query)) {
 

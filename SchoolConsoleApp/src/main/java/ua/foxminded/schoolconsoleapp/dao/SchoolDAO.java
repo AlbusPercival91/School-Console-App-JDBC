@@ -24,7 +24,7 @@ public class SchoolDAO {
         String studentCountQuery = "SELECT group_id, COUNT (*) FROM school.students GROUP BY group_id HAVING COUNT(*)<="
                 + number + ";";
 
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDriverWithHost(),
+        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(),
                 DBConnection.getDbUser(), DBConnection.getDbPassword());
                 Statement statement = connection.createStatement()) {
             ResultSet studentCountSet = statement.executeQuery(studentCountQuery);
@@ -56,7 +56,7 @@ public class SchoolDAO {
                 + "    ON school.students_courses_checkouts.course_id = school.course.course_id\n"
                 + " WHERE school.course.course_name = '" + courseName + "';";
 
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDriverWithHost(),
+        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(),
                 DBConnection.getDbUser(), DBConnection.getDbPassword());
                 Statement statement = connection.createStatement()) {
             ResultSet set = statement.executeQuery(query);
@@ -71,7 +71,7 @@ public class SchoolDAO {
 
     public static void addNewStudent(Student student) {
         String query = "insert into school.students(group_id, first_name, last_name) values(?,?,?)";
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDriverWithHost(),
+        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(),
                 DBConnection.getDbUser(), DBConnection.getDbPassword());
                 PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setObject(1, student.getGroupId());
@@ -86,7 +86,7 @@ public class SchoolDAO {
 
     public static void deleteStudentByID(int id) {
         String query = "delete from school.students where student_id = " + id + ";";
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDriverWithHost(),
+        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(),
                 DBConnection.getDbUser(), DBConnection.getDbPassword());
                 PreparedStatement statement = connection.prepareStatement(query)) {
             int rowsDeleted = statement.executeUpdate();
@@ -100,7 +100,7 @@ public class SchoolDAO {
         Set<Integer> studentId = new HashSet<>();
         String query = "select student_id from school.students;";
 
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDriverWithHost(),
+        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(),
                 DBConnection.getDbUser(), DBConnection.getDbPassword());
                 Statement statement = connection.createStatement()) {
             ResultSet set = statement.executeQuery(query);
@@ -118,7 +118,7 @@ public class SchoolDAO {
         String query = "INSERT INTO school.students_courses_checkouts(student_id, course_id)\n" + " SELECT\n"
                 + "     (SELECT student_id FROM school.students WHERE student_id=" + studentId + "),\n"
                 + "     (SELECT course_id FROM school.course WHERE course_name = '" + courseName + "');";
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDriverWithHost(),
+        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(),
                 DBConnection.getDbUser(), DBConnection.getDbPassword());
                 PreparedStatement statement = connection.prepareStatement(query)) {
             statement.execute();
@@ -131,7 +131,7 @@ public class SchoolDAO {
         String query = "DELETE \n" + "FROM school.students_courses_checkouts\n" + "WHERE student_id='" + studentId
                 + "' AND \n" + "      course_id IN (SELECT course_id \n" + "FROM school.course \n"
                 + "WHERE course_name = '" + courseName + "');";
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDriverWithHost(),
+        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(),
                 DBConnection.getDbUser(), DBConnection.getDbPassword());
                 PreparedStatement statement = connection.prepareStatement(query)) {
             int rowsDeleted = statement.executeUpdate();

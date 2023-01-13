@@ -10,16 +10,15 @@ import java.sql.SQLException;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.apache.ibatis.ognl.PropertyAccessor;
 
-public class InitialTables {
+public class ScriptReader {
 
-    private InitialTables() {
+    private ScriptReader() {
 
     }
 
-    public static void createTables(String fileName) {
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDriverWithHost(),
-                DBConnection.getDbUser(), DBConnection.getDbPassword());
-                InputStream iStream = PropertyAccessor.class.getResourceAsStream("/" + fileName)) {
+    public static void readSqlScript(String scriptName, String dbUrl, String dbUser, String dbPwd) {
+        try (Connection connection = DBConnection.getConnection(dbUrl, dbUser, dbPwd);
+                InputStream iStream = PropertyAccessor.class.getResourceAsStream("/" + scriptName)) {
             ScriptRunner runner = new ScriptRunner(connection);
             Reader reader = new BufferedReader(new InputStreamReader(iStream));
             runner.setLogWriter(null);
