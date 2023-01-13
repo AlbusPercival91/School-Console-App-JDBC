@@ -9,7 +9,8 @@ class DataBaseConnectionTest {
 
     @Test
     void testGetConnection() throws SQLException {
-        Connection con = DataBaseConnection.getConnection();
+        Connection con = DBConnection.getConnection(DBConnection.getDriverWithHost(), DBConnection.getDbUser(),
+                DBConnection.getDbPassword());
         assertNotNull(con);
         con.close();
     }

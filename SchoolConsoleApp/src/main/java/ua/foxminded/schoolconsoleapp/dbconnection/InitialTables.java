@@ -17,7 +17,8 @@ public class InitialTables {
     }
 
     public static void createTables(String fileName) {
-        try (Connection connection = DataBaseConnection.getConnection();
+        try (Connection connection = DBConnection.getConnection(DBConnection.getDriverWithHost(),
+                DBConnection.getDbUser(), DBConnection.getDbPassword());
                 InputStream iStream = PropertyAccessor.class.getResourceAsStream("/" + fileName)) {
             ScriptRunner runner = new ScriptRunner(connection);
             Reader reader = new BufferedReader(new InputStreamReader(iStream));
