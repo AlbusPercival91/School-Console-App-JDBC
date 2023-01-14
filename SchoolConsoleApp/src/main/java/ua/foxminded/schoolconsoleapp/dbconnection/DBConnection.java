@@ -18,7 +18,7 @@ public class DBConnection {
         try {
             connection = DriverManager.getConnection(dbUrl, dbUser, dbPwd);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("Wrong connection parameters");
         }
         return connection;
     }

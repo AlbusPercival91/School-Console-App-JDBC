@@ -25,7 +25,7 @@ public class ScriptReader {
                 runner.setLogWriter(null);
                 runner.runScript(reader);
             } catch (IOException | SQLException e) {
-                throw new IllegalArgumentException("Unexpected error occured during file reading");
+                throw new IllegalArgumentException("Wrong connection parameters");
             }
         } else {
             throw new IllegalArgumentException("File not found");
