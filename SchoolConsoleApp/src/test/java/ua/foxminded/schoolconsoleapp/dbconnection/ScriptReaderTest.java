@@ -1,6 +1,7 @@
 package ua.foxminded.schoolconsoleapp.dbconnection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,9 +21,10 @@ class ScriptReaderTest {
     }
 
     @Test
-    void test() {
-        boolean d = true;
-        assertEquals(true, d);
+    void readSqlScript_ThrowsIllegalArgumentException_IfFileIsNull() {
+        Exception exception = assertThrows(IllegalArgumentException.class,
+                () -> ScriptReader.readSqlScript(null, "jdbc:h2:~/test", "", ""));
+        assertEquals("File not found", exception.getMessage());
     }
 
 }
