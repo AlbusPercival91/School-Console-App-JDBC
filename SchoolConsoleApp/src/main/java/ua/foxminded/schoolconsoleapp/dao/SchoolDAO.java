@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import ua.foxminded.schoolconsoleapp.Student;
-import ua.foxminded.schoolconsoleapp.dbconnection.DBConnection;
 
 public class SchoolDAO {
 
@@ -19,14 +17,13 @@ public class SchoolDAO {
 
     }
 
-    public static List<String> findGgoupsWithLessOrEqualsStudents(int number) {
+    public static List<String> findGgoupsWithLessOrEqualsStudents(int number, Connection dbConnection) {
         List<String> groupID = new ArrayList<>();
         List<String> groupName = new ArrayList<>();
         String studentCountQuery = "SELECT group_id, COUNT (*) FROM school.students GROUP BY group_id HAVING COUNT(*)<="
                 + number + ";";
 
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(), DBConnection.getDbUser(),
-                DBConnection.getDbPassword()); Statement statement = connection.createStatement()) {
+        try (Connection connection = dbConnection; Statement statement = connection.createStatement()) {
             ResultSet studentCountSet = statement.executeQuery(studentCountQuery);
 
             while (studentCountSet.next()) {
@@ -49,7 +46,7 @@ public class SchoolDAO {
         return groupName;
     }
 
-    public static List<String> findStudentsRelatedToCourse(String courseName) {
+    public static List<String> findStudentsRelatedToCourse(String courseName, Connection dbConnection) {
         String query = "SELECT first_name, last_name\n" + " FROM school.students\n"
                 + "  JOIN school.students_courses_checkouts \n"
                 + "    ON school.students_courses_checkouts.student_id = school.students.student_id\n"
@@ -58,8 +55,7 @@ public class SchoolDAO {
                 + " WHERE school.course.course_name = '" + courseName + "';";
         List<String> studentName = new ArrayList<>();
 
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(), DBConnection.getDbUser(),
-                DBConnection.getDbPassword()); Statement statement = connection.createStatement()) {
+        try (Connection connection = dbConnection; Statement statement = connection.createStatement()) {
             ResultSet set = statement.executeQuery(query);
 
             while (set.next()) {
@@ -71,10 +67,10 @@ public class SchoolDAO {
         return studentName;
     }
 
-    public static String addNewStudent(Student student) {
+    public static String addNewStudent(Student student, Connection dbConnection) {
         String query = "insert into school.students(group_id, first_name, last_name) values(?,?,?)";
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(), DBConnection.getDbUser(),
-                DBConnection.getDbPassword()); PreparedStatement statement = connection.prepareStatement(query)) {
+
+        try (Connection connection = dbConnection; PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setObject(1, student.getGroupId());
             statement.setString(2, student.getFirstName());
             statement.setString(3, student.getLastName());
@@ -85,11 +81,11 @@ public class SchoolDAO {
         return student.toString() + " inserted to DB";
     }
 
-    public static String deleteStudentByID(int id) {
+    public static String deleteStudentByID(int id, Connection dbConnection) {
         String query = "delete from school.students where student_id = " + id + ";";
         int rowsDeleted = 0;
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(), DBConnection.getDbUser(),
-                DBConnection.getDbPassword()); PreparedStatement statement = connection.prepareStatement(query)) {
+
+        try (Connection connection = dbConnection; PreparedStatement statement = connection.prepareStatement(query)) {
             rowsDeleted = statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -97,12 +93,11 @@ public class SchoolDAO {
         return rowsDeleted + " student(s) deleted from data base";
     }
 
-    public static Set<Integer> getStudentID() {
+    public static Set<Integer> getStudentID(Connection dbConnection) {
         Set<Integer> studentId = new HashSet<>();
         String query = "select student_id from school.students;";
 
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(), DBConnection.getDbUser(),
-                DBConnection.getDbPassword()); Statement statement = connection.createStatement()) {
+        try (Connection connection = dbConnection; Statement statement = connection.createStatement()) {
             ResultSet set = statement.executeQuery(query);
 
             while (set.next()) {
@@ -114,12 +109,12 @@ public class SchoolDAO {
         return studentId;
     }
 
-    public static String addStudentToTheCourse(Integer studentId, String courseName) {
+    public static String addStudentToTheCourse(Integer studentId, String courseName, Connection dbConnection) {
         String query = "INSERT INTO school.students_courses_checkouts(student_id, course_id)\n" + " SELECT\n"
                 + "     (SELECT student_id FROM school.students WHERE student_id=" + studentId + "),\n"
                 + "     (SELECT course_id FROM school.course WHERE course_name = '" + courseName + "');";
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(), DBConnection.getDbUser(),
-                DBConnection.getDbPassword()); PreparedStatement statement = connection.prepareStatement(query)) {
+
+        try (Connection connection = dbConnection; PreparedStatement statement = connection.prepareStatement(query)) {
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -127,13 +122,13 @@ public class SchoolDAO {
         return "Student with ID: " + studentId.toString() + " assigned to course: " + courseName;
     }
 
-    public static String removeStudentFromCourse(Integer studentId, String courseName) {
+    public static String removeStudentFromCourse(Integer studentId, String courseName, Connection dbConnection) {
         String query = "DELETE \n" + "FROM school.students_courses_checkouts\n" + "WHERE student_id='" + studentId
                 + "' AND \n" + "      course_id IN (SELECT course_id \n" + "FROM school.course \n"
                 + "WHERE course_name = '" + courseName + "');";
         int rowsDeleted = 0;
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(), DBConnection.getDbUser(),
-                DBConnection.getDbPassword()); PreparedStatement statement = connection.prepareStatement(query)) {
+
+        try (Connection connection = dbConnection; PreparedStatement statement = connection.prepareStatement(query)) {
             rowsDeleted = statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

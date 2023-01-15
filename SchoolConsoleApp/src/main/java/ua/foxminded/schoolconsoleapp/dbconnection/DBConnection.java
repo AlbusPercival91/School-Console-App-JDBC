@@ -6,12 +6,18 @@ import java.sql.SQLException;
 
 public class DBConnection {
     static Connection connection;
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/school";
-    private static final String DB_USER = "school_admin";
-    private static final String DB_PASSWORD = "1234";
 
     private DBConnection() {
 
+    }
+
+    public static Connection getPsqlConnection() {
+        try {
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/school", "school_admin", "1234");
+        } catch (SQLException e) {
+            throw new IllegalArgumentException("Wrong connection parameters");
+        }
+        return connection;
     }
 
     public static Connection getConnection(String dbUrl, String dbUser, String dbPwd) {
@@ -21,17 +27,5 @@ public class DBConnection {
             throw new IllegalArgumentException("Wrong connection parameters");
         }
         return connection;
-    }
-
-    public static String getDbUrl() {
-        return DB_URL;
-    }
-
-    public static String getDbUser() {
-        return DB_USER;
-    }
-
-    public static String getDbPassword() {
-        return DB_PASSWORD;
     }
 }

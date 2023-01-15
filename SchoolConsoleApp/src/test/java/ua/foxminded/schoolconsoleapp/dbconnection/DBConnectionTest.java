@@ -11,6 +11,13 @@ import org.junit.jupiter.api.Test;
 class DBConnectionTest {
 
     @Test
+    void testGetPsqlConnection() throws SQLException {
+        Connection con = DBConnection.getPsqlConnection();
+        assertNotNull(con);
+        con.close();
+    }
+
+    @Test
     void testGetConnection() throws SQLException {
         Connection con = DBConnection.getConnection("jdbc:h2:~/test", "", "");
         assertNotNull(con);

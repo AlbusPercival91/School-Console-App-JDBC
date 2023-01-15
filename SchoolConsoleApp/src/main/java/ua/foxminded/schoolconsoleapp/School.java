@@ -7,13 +7,12 @@ import ua.foxminded.schoolconsoleapp.dbconnection.ScriptReader;
 public class School {
 
     public void createSchoolData() {
-        ScriptReader.readSqlScript("create_tables.sql", DBConnection.getDbUrl(), DBConnection.getDbUser(),
-                DBConnection.getDbPassword());
-
-        TestDataDAO testData = new TestDataDAO();
-        testData.createGroup();
-        testData.createStudent();
-        testData.createCourse();
-        testData.createCourseStudentRelation();
+//        ScriptReader.readSqlScript("create_tables.sql", DBConnection.getPsqlConnection());
+//
+//        TestDataDAO testData = new TestDataDAO();
+//        testData.createGroup(DBConnection.getPsqlConnection());
+//        testData.createStudent(DBConnection.getPsqlConnection());
+//        testData.createCourse(DBConnection.getPsqlConnection());
+//        testData.createCourseStudentRelation(DBConnection.getPsqlConnection());
     }
 }

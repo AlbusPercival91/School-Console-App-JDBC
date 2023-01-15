@@ -16,9 +16,9 @@ public class ScriptReader {
 
     }
 
-    public static void readSqlScript(String scriptFile, String dbUrl, String dbUser, String dbPwd) {
+    public static void readSqlScript(String scriptFile, Connection dbConnection) {
         if (scriptFile != null) {
-            try (Connection connection = DBConnection.getConnection(dbUrl, dbUser, dbPwd);
+            try (Connection connection = dbConnection;
                     InputStream iStream = PropertyAccessor.class.getResourceAsStream("/" + scriptFile)) {
                 ScriptRunner runner = new ScriptRunner(connection);
                 Reader reader = new BufferedReader(new InputStreamReader(iStream));

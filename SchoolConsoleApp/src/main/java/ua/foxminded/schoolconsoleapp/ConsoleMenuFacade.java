@@ -2,6 +2,7 @@ package ua.foxminded.schoolconsoleapp;
 
 import java.util.Scanner;
 import ua.foxminded.schoolconsoleapp.dao.SchoolDAO;
+import ua.foxminded.schoolconsoleapp.dbconnection.DBConnection;
 import ua.foxminded.schoolconsoleapp.testdata.CourseMaker;
 
 public class ConsoleMenuFacade {
@@ -25,7 +26,8 @@ public class ConsoleMenuFacade {
 
         if (scan.hasNextInt()) {
             int quant = scan.nextInt();
-            SchoolDAO.findGgoupsWithLessOrEqualsStudents(quant).forEach(System.out::println);
+            SchoolDAO.findGgoupsWithLessOrEqualsStudents(quant, DBConnection.getPsqlConnection())
+                    .forEach(System.out::println);
         } else {
             System.out.println(DIGITS_REQUIRED);
         }
@@ -36,7 +38,8 @@ public class ConsoleMenuFacade {
         String courseName = scan.nextLine();
 
         if (course.generateCourses().contains(courseName)) {
-            SchoolDAO.findStudentsRelatedToCourse(courseName).forEach(System.out::println);
+            SchoolDAO.findStudentsRelatedToCourse(courseName, DBConnection.getPsqlConnection())
+                    .forEach(System.out::println);
             System.out.println("\n" + menu);
         } else {
             System.out.println(WRONG_COURSE);
@@ -62,7 +65,7 @@ public class ConsoleMenuFacade {
                         groupId = null;
                     }
                     Student student = new Student(groupId, firstName, lastName);
-                    System.out.println(SchoolDAO.addNewStudent(student));
+                    System.out.println(SchoolDAO.addNewStudent(student, DBConnection.getPsqlConnection()));
                 } else {
                     System.out.println(GROUP_ID_NOTE);
                 }
@@ -77,7 +80,7 @@ public class ConsoleMenuFacade {
     public void deleteStudentByIdFacade(Scanner scan) {
         System.out.println(STUDENT_ID);
         int studentId = scan.nextInt();
-        System.out.println(SchoolDAO.deleteStudentByID(studentId));
+        System.out.println(SchoolDAO.deleteStudentByID(studentId, DBConnection.getPsqlConnection()));
     }
 
     public void addStudentToTheCourseFacade(Scanner scan) {
@@ -86,13 +89,13 @@ public class ConsoleMenuFacade {
         if (scan.hasNextInt()) {
             Integer studentId = scan.nextInt();
 
-            if (SchoolDAO.getStudentID().contains(studentId)) {
+            if (SchoolDAO.getStudentID(DBConnection.getPsqlConnection()).contains(studentId)) {
                 System.out.println(COURSE_LIST);
                 course.generateCourses().forEach(System.out::println);
                 String courseName = scan.next();
 
                 if (course.generateCourses().contains(courseName)) {
-                    SchoolDAO.addStudentToTheCourse(studentId, courseName);
+                    SchoolDAO.addStudentToTheCourse(studentId, courseName, DBConnection.getPsqlConnection());
                     System.out.println("Student with ID: " + studentId + " assigned to the course: " + courseName);
                 } else {
                     System.out.println(WRONG_COURSE);
@@ -111,13 +114,14 @@ public class ConsoleMenuFacade {
         if (scan.hasNextInt()) {
             Integer studentId = scan.nextInt();
 
-            if (SchoolDAO.getStudentID().contains(studentId)) {
+            if (SchoolDAO.getStudentID(DBConnection.getPsqlConnection()).contains(studentId)) {
                 System.out.println(COURSE_LIST);
                 course.generateCourses().forEach(System.out::println);
                 String courseName = scan.next();
 
                 if (course.generateCourses().contains(courseName)) {
-                    System.out.println(SchoolDAO.removeStudentFromCourse(studentId, courseName));
+                    System.out.println(
+                            SchoolDAO.removeStudentFromCourse(studentId, courseName, DBConnection.getPsqlConnection()));
                 } else {
                     System.out.println(WRONG_COURSE);
                 }

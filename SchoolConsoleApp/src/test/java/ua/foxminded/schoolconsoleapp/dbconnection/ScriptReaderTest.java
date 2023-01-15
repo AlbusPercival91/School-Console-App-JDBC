@@ -22,17 +22,17 @@ class ScriptReaderTest {
 
     @BeforeEach
     void createTables() {
-        ScriptReader.readSqlScript(FILENAME_STARTUP_SCRIPT, "jdbc:h2:~/test", "", "");
+        ScriptReader.readSqlScript(FILENAME_STARTUP_SCRIPT, DBConnection.getConnection("jdbc:h2:~/test", "", ""));
     }
 
     @AfterEach
     void tearDown() throws Exception {
-        ScriptReader.readSqlScript(FILENAME_FINISH_SCRIPT, "jdbc:h2:~/test", "", "");
+        ScriptReader.readSqlScript(FILENAME_FINISH_SCRIPT, DBConnection.getConnection("jdbc:h2:~/test", "", ""));
     }
 
     @Test
     void readSqlScript_ExpectedAndActualList_ShouldBeEquals() throws SQLException {
-        ScriptReader.readSqlScript(SCRIPTREADER_TEST_SCRIPT, "jdbc:h2:~/test", "", "");
+        ScriptReader.readSqlScript(SCRIPTREADER_TEST_SCRIPT, DBConnection.getConnection("jdbc:h2:~/test", "", ""));
         String studentCountQuery = "select*from groups;";
         List<String> groupsActual = new ArrayList<>();
         List<String> groupsExpected = Arrays.asList("AB-28", "PM-83", "WD-40");
@@ -50,8 +50,8 @@ class ScriptReaderTest {
 
     @Test
     void readSqlScript_ThrowsIllegalArgumentException_IfFileIsNull() {
-        Exception exception = assertThrows(IllegalArgumentException.class,
-                () -> ScriptReader.readSqlScript(null, "jdbc:h2:~/test", "", ""));
+        Exception exception = assertThrows(Exception.class,
+                () -> ScriptReader.readSqlScript(null, DBConnection.getConnection("jdbc:h2:~/test", "", "")));
         assertEquals("File not found", exception.getMessage());
     }
 

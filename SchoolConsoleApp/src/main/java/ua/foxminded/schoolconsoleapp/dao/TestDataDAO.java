@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.Set;
-import ua.foxminded.schoolconsoleapp.dbconnection.DBConnection;
 import ua.foxminded.schoolconsoleapp.testdata.CourseMaker;
 import ua.foxminded.schoolconsoleapp.testdata.GroupMaker;
 import ua.foxminded.schoolconsoleapp.testdata.StudentMaker;
@@ -15,13 +14,11 @@ public class TestDataDAO {
     CourseMaker course = new CourseMaker();
     GroupMaker group = new GroupMaker();
 
-    public void createStudent() {
+    public void createStudent(Connection dbConnection) {
         String query = "INSERT INTO school.students(group_id, first_name, last_name) " + "VALUES(?,?,?)";
         int i = 0;
 
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(),
-                DBConnection.getDbUser(), DBConnection.getDbPassword());
-                PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = dbConnection; PreparedStatement statement = connection.prepareStatement(query)) {
 
             for (String s : student.generateStudents(student.generateNames(20), student.generateSurnames(20))) {
                 statement.setObject(1, group.assignGroupId().get(i++));
@@ -35,11 +32,9 @@ public class TestDataDAO {
         }
     }
 
-    public void createGroup() {
+    public void createGroup(Connection dbConnection) {
         String query = "INSERT INTO school.group(group_name) " + "VALUES(?)";
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(),
-                DBConnection.getDbUser(), DBConnection.getDbPassword());
-                PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = dbConnection; PreparedStatement statement = connection.prepareStatement(query)) {
 
             for (String s : group.generateGroups()) {
                 statement.setString(1, s);
@@ -51,11 +46,9 @@ public class TestDataDAO {
         }
     }
 
-    public void createCourse() {
+    public void createCourse(Connection dbConnection) {
         String query = "INSERT INTO school.course(course_name, course_description) " + "VALUES(?,?)";
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(),
-                DBConnection.getDbUser(), DBConnection.getDbPassword());
-                PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = dbConnection; PreparedStatement statement = connection.prepareStatement(query)) {
 
             for (String s : course.generateCourses()) {
                 statement.setString(1, s);
@@ -68,12 +61,10 @@ public class TestDataDAO {
         }
     }
 
-    public void createCourseStudentRelation() {
+    public void createCourseStudentRelation(Connection dbConnection) {
         String query = "INSERT INTO school.students_courses_checkouts(student_id,course_id) " + "VALUES(?,?)";
 
-        try (Connection connection = DBConnection.getConnection(DBConnection.getDbUrl(),
-                DBConnection.getDbUser(), DBConnection.getDbPassword());
-                PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = dbConnection; PreparedStatement statement = connection.prepareStatement(query)) {
 
             for (Map.Entry<Integer, Set<Integer>> entry : course.assignCourseId().entrySet()) {
                 Integer key = entry.getKey();
