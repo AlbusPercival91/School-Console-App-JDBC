@@ -1,7 +1,11 @@
 package ua.foxminded.schoolconsoleapp.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import ua.foxminded.schoolconsoleapp.Student;
 import ua.foxminded.schoolconsoleapp.dbconnection.DBConnection;
 import ua.foxminded.schoolconsoleapp.dbconnection.ScriptReader;
 import ua.foxminded.schoolconsoleapp.dbconnection.TestConstants;
@@ -113,7 +118,27 @@ class SchoolDAOTest {
     }
 
     @Test
-    void addNewStudent() {
+    void addNewStudent_StringExpectedAndActual_ShouldBeEquals() throws SQLException {
+        TestDataDAO testData = new TestDataDAO();
+        testData.createGroup(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        Student student = new Student(4, "Harry", "Potter");
+        SchoolDAO.addNewStudent(student, DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        String actual = "";
+        String expected = 1 + " " + student.getGroupId() + " " + student.getFirstName() + " " + student.getLastName();
+
+        try (Connection connection = DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", "");
+                Statement statement = connection.createStatement()) {
+            ResultSet set = statement.executeQuery("select*from school.students;");
+
+            while (set.next()) {
+                actual = set.getString(1) + " " + set.getString(2) + " " + set.getString(3) + " " + set.getString(4);
+            }
+        }
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void deleteStudentByID_CheckQuantity_ShouldBeEqualOne() {
 
     }
 
