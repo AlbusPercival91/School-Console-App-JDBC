@@ -25,7 +25,7 @@ public class ConsoleMenuFacade {
 
         if (scan.hasNextInt()) {
             int quant = scan.nextInt();
-            SchoolDAO.findGgoupsWithLessOrEqualsStudents(quant);
+            SchoolDAO.findGgoupsWithLessOrEqualsStudents(quant).forEach(System.out::println);
         } else {
             System.out.println(DIGITS_REQUIRED);
         }
@@ -36,7 +36,7 @@ public class ConsoleMenuFacade {
         String courseName = scan.nextLine();
 
         if (course.generateCourses().contains(courseName)) {
-            SchoolDAO.findStudentsRelatedToCourse(courseName);
+            SchoolDAO.findStudentsRelatedToCourse(courseName).forEach(System.out::println);
             System.out.println("\n" + menu);
         } else {
             System.out.println(WRONG_COURSE);
@@ -62,7 +62,7 @@ public class ConsoleMenuFacade {
                         groupId = null;
                     }
                     Student student = new Student(groupId, firstName, lastName);
-                    SchoolDAO.addNewStudent(student);
+                    System.out.println(SchoolDAO.addNewStudent(student));
                 } else {
                     System.out.println(GROUP_ID_NOTE);
                 }
@@ -77,7 +77,7 @@ public class ConsoleMenuFacade {
     public void deleteStudentByIdFacade(Scanner scan) {
         System.out.println(STUDENT_ID);
         int studentId = scan.nextInt();
-        SchoolDAO.deleteStudentByID(studentId);
+        System.out.println(SchoolDAO.deleteStudentByID(studentId));
     }
 
     public void addStudentToTheCourseFacade(Scanner scan) {
@@ -117,7 +117,7 @@ public class ConsoleMenuFacade {
                 String courseName = scan.next();
 
                 if (course.generateCourses().contains(courseName)) {
-                    SchoolDAO.removeStudentFromCourse(studentId, courseName);
+                    System.out.println(SchoolDAO.removeStudentFromCourse(studentId, courseName));
                 } else {
                     System.out.println(WRONG_COURSE);
                 }
