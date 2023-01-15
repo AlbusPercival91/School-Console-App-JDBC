@@ -33,7 +33,7 @@ public class TestDataDAO {
     }
 
     public void createGroup(Connection dbConnection) {
-        String query = "INSERT INTO school.group(group_name) " + "VALUES(?)";
+        String query = "INSERT INTO school.groups(group_name) " + "VALUES(?)";
         try (Connection connection = dbConnection; PreparedStatement statement = connection.prepareStatement(query)) {
 
             for (String s : group.generateGroups()) {

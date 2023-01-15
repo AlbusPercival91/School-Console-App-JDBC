@@ -33,7 +33,7 @@ public class SchoolDAO {
             }
 
             for (String s : groupID) {
-                String groupNameQuery = "SELECT * FROM school.group WHERE group_id = " + s + ";";
+                String groupNameQuery = "SELECT * FROM school.groups WHERE group_id = " + s + ";";
                 ResultSet groupNameSet = statement.executeQuery(groupNameQuery);
 
                 while (groupNameSet.next()) {

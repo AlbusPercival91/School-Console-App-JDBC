@@ -19,7 +19,7 @@ class DBConnectionTest {
 
     @Test
     void testGetConnection() throws SQLException {
-        Connection con = DBConnection.getConnection("jdbc:h2:~/test", "", "");
+        Connection con = DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", "");
         assertNotNull(con);
         con.close();
     }
@@ -27,7 +27,7 @@ class DBConnectionTest {
     @Test
     void testGetConnection_ThrowsIllegalArgumentException_IfConnectionIsWrong() {
         Exception exception = assertThrows(IllegalArgumentException.class,
-                () -> DBConnection.getConnection("dbc:h2:~/test", "", ""));
+                () -> DBConnection.getConnection(":h2:~/test;MODE=PostgreSQL", "", ""));
         assertEquals("Wrong connection parameters", exception.getMessage());
     }
 }

@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS school.students_courses_checkouts;
 DROP TABLE IF EXISTS school.students;
 DROP TABLE IF EXISTS school.course;
-DROP TABLE IF EXISTS school.group;
+DROP TABLE IF EXISTS school.groups;
 
 DROP SEQUENCE IF EXISTS school.student_seq;
 DROP SEQUENCE IF EXISTS school.course_seq;
@@ -24,7 +24,7 @@ CREATE SEQUENCE IF NOT EXISTS school.group_seq
     INCREMENT 1
     START 1;
     
-CREATE TABLE IF NOT EXISTS school.group (
+CREATE TABLE IF NOT EXISTS school.groups (
     group_id integer DEFAULT nextval('school.group_seq'::regclass),
     group_name character(60) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT group_pkey PRIMARY KEY (group_id)

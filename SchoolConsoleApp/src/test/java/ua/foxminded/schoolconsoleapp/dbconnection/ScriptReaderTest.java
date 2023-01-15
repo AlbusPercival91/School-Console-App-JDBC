@@ -22,22 +22,25 @@ class ScriptReaderTest {
 
     @BeforeEach
     void createTables() {
-        ScriptReader.readSqlScript(FILENAME_STARTUP_SCRIPT, DBConnection.getConnection("jdbc:h2:~/test", "", ""));
+        ScriptReader.readSqlScript(FILENAME_STARTUP_SCRIPT,
+                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
     }
 
     @AfterEach
     void tearDown() throws Exception {
-        ScriptReader.readSqlScript(FILENAME_FINISH_SCRIPT, DBConnection.getConnection("jdbc:h2:~/test", "", ""));
+        ScriptReader.readSqlScript(FILENAME_FINISH_SCRIPT,
+                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
     }
 
     @Test
     void readSqlScript_ExpectedAndActualList_ShouldBeEquals() throws SQLException {
-        ScriptReader.readSqlScript(SCRIPTREADER_TEST_SCRIPT, DBConnection.getConnection("jdbc:h2:~/test", "", ""));
-        String studentCountQuery = "select*from groups;";
+        ScriptReader.readSqlScript(SCRIPTREADER_TEST_SCRIPT,
+                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        String studentCountQuery = "select*from school.groups;";
         List<String> groupsActual = new ArrayList<>();
         List<String> groupsExpected = Arrays.asList("AB-28", "PM-83", "WD-40");
 
-        try (Connection connection = DBConnection.getConnection("jdbc:h2:~/test", "", "");
+        try (Connection connection = DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", "");
                 Statement statement = connection.createStatement()) {
             ResultSet groupSet = statement.executeQuery(studentCountQuery);
 
@@ -50,9 +53,8 @@ class ScriptReaderTest {
 
     @Test
     void readSqlScript_ThrowsIllegalArgumentException_IfFileIsNull() {
-        Exception exception = assertThrows(Exception.class,
-                () -> ScriptReader.readSqlScript(null, DBConnection.getConnection("jdbc:h2:~/test", "", "")));
+        Exception exception = assertThrows(Exception.class, () -> ScriptReader.readSqlScript(null,
+                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", "")));
         assertEquals("File not found", exception.getMessage());
     }
-
 }
