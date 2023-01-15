@@ -2,7 +2,6 @@ package ua.foxminded.schoolconsoleapp.dbconnection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,26 +9,24 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ScriptReaderTest {
-    private static final String FILENAME_STARTUP_SCRIPT = "create_tables_test.sql";
+    private static final String STARTUP_SCRIPT = "create_tables_test.sql";
     private static final String SCRIPTREADER_TEST_SCRIPT = "scriptreader_test.sql";
-    private static final String FILENAME_FINISH_SCRIPT = "drop_all_tables.sql";
+    private static final String END_SCRIPT = "drop_all_tables.sql";
 
     @BeforeEach
     void createTables() {
-        ScriptReader.readSqlScript(FILENAME_STARTUP_SCRIPT,
+        ScriptReader.readSqlScript(STARTUP_SCRIPT,
                 DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
     }
 
     @AfterEach
     void tearDown() throws Exception {
-        ScriptReader.readSqlScript(FILENAME_FINISH_SCRIPT,
-                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        ScriptReader.readSqlScript(END_SCRIPT, DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
     }
 
     @Test
