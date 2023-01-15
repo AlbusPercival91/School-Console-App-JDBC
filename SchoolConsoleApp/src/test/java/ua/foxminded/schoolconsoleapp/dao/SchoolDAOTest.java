@@ -6,20 +6,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ua.foxminded.schoolconsoleapp.dbconnection.DBConnection;
 import ua.foxminded.schoolconsoleapp.dbconnection.ScriptReader;
+import ua.foxminded.schoolconsoleapp.dbconnection.TestConstants;
 
 class SchoolDAOTest {
-    private static final String STARTUP_SCRIPT = "create_tables_test.sql";
-    private static final String END_SCRIPT = "drop_all_tables.sql";
 
     @BeforeEach
     void createTables() {
-        ScriptReader.readSqlScript(STARTUP_SCRIPT,
+        ScriptReader.readSqlScript(TestConstants.STARTUP_SCRIPT,
                 DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
     }
 
     @AfterEach
     void tearDown() throws Exception {
-        ScriptReader.readSqlScript(END_SCRIPT, DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        ScriptReader.readSqlScript(TestConstants.END_SCRIPT,
+                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
     }
 
     @Test
