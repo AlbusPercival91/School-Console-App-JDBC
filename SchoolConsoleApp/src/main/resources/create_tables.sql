@@ -3,53 +3,51 @@ DROP TABLE IF EXISTS school.students;
 DROP TABLE IF EXISTS school.course;
 DROP TABLE IF EXISTS school.groups;
 
-DROP SEQUENCE IF EXISTS school.student_seq;
-DROP SEQUENCE IF EXISTS school.course_seq;
-DROP SEQUENCE IF EXISTS school.group_seq;
-
 DROP SCHEMA IF EXISTS school;
 
 CREATE SCHEMA IF NOT EXISTS school
     AUTHORIZATION school_admin;
     
-CREATE SEQUENCE IF NOT EXISTS school.student_seq
-    INCREMENT 1
-    START 1;
-    
-CREATE SEQUENCE IF NOT EXISTS school.course_seq
-    INCREMENT 1
-    START 1;
-    
-CREATE SEQUENCE IF NOT EXISTS school.group_seq
-    INCREMENT 1
-    START 1;
-    
-CREATE TABLE IF NOT EXISTS school.groups (
-    group_id integer DEFAULT nextval('school.group_seq'::regclass),
-    group_name character(60) COLLATE pg_catalog."default" NOT NULL,
+CREATE TABLE IF NOT EXISTS school.groups
+(
+    group_id SERIAL NOT NULL,
+    group_name character varying(10) NOT NULL,
     CONSTRAINT group_pkey PRIMARY KEY (group_id)
 );
-    
-CREATE TABLE IF NOT EXISTS school.students(
-    student_id integer DEFAULT nextval('school.student_seq'::regclass),
+
+CREATE TABLE IF NOT EXISTS school.students
+(
+    student_id SERIAL NOT NULL,
     group_id integer,
-    first_name character(30) COLLATE pg_catalog."default" NOT NULL,
-    last_name character(40) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT students_pkey PRIMARY KEY (student_id) 
+    first_name character varying(50) NOT NULL,
+    last_name character varying(50) NOT NULL,
+    CONSTRAINT students_pkey PRIMARY KEY (student_id),
+    CONSTRAINT group_id FOREIGN KEY (group_id)
+        REFERENCES school.groups (group_id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
 );
     
-CREATE TABLE IF NOT EXISTS school.course(
-    course_id integer DEFAULT nextval('school.course_seq'::regclass),
-    course_name character(90) COLLATE pg_catalog."default" NOT NULL,
-    course_description text COLLATE pg_catalog."default",
-    CONSTRAINT course_pkey PRIMARY KEY (course_id)
+CREATE TABLE IF NOT EXISTS school.course
+(
+    course_id SERIAL NOT NULL,
+    course_name character varying(50) NOT NULL,
+    course_description character varying,
+    CONSTRAINT courses_pkey PRIMARY KEY (course_id)
 );
 
-CREATE TABLE IF NOT EXISTS school.students_courses_checkouts(
+CREATE TABLE IF NOT EXISTS school.students_courses_checkouts
+(
     checkouts_id SERIAL,
-    student_id integer DEFAULT nextval('school.student_seq'::regclass) NOT NULL,
-    course_id integer DEFAULT nextval('school.course_seq'::regclass) NOT NULL,
-    CONSTRAINT students_courses_checkouts_pkey PRIMARY KEY (checkouts_id) 
+    student_id integer NOT NULL,
+    course_id integer NOT NULL,
+    CONSTRAINT students_courses_checkouts_pkey PRIMARY KEY (checkouts_id),
+    CONSTRAINT course_id FOREIGN KEY (course_id) REFERENCES school.course (course_id)
+    ON UPDATE NO ACTION
+    ON DELETE CASCADE,
+    CONSTRAINT student_id FOREIGN KEY (student_id) REFERENCES school.students (student_id)
+    ON UPDATE NO ACTION
+    ON DELETE CASCADE
 );
 
 

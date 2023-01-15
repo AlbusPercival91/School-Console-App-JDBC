@@ -22,7 +22,7 @@ class ScriptReaderTest {
     }
 
     @AfterEach
-    void tearDown() throws Exception {
+    void dropAllTables() throws Exception {
         ScriptReader.readSqlScript(TestConstants.END_SCRIPT, DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
     }
 
