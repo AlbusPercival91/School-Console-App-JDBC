@@ -20,7 +20,7 @@ public class SchoolConsoleApp {
         school.createSchoolData();
         ConsoleMenuFacade cmf = new ConsoleMenuFacade();
         Scanner scan = new Scanner(System.in);
-       
+
         String command = "";
         String menu = "a. Find all groups with less or equal students’ number\n"
                 + "b. Find all students related to the course with the given name\n" + "c. Add a new student\n"
@@ -49,6 +49,6 @@ public class SchoolConsoleApp {
                 System.out.println("\n" + menu);
             }
         }
-        scan.close();  
+        scan.close();
     }
 }
