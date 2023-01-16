@@ -34,13 +34,13 @@ class SchoolDAOTest {
     }
 
     @ParameterizedTest
-    @MethodSource("ua.foxminded.schoolconsoleapp.dao.SchoolDAOTestValues#findStudentsRelatedToCourse_CheckValues()")
+    @MethodSource("ua.foxminded.schoolconsoleapp.dao.SchoolDAOTestArguments#findStudentsRelatedToCourse_CheckValues()")
     void findStudentsRelatedToCourse__ShouldBeMoreZero(boolean expected, boolean actual) {
         assertEquals(expected, actual);
     }
 
     @ParameterizedTest
-    @MethodSource("ua.foxminded.schoolconsoleapp.dao.SchoolDAOTestValues#addStudentToTheCourse_StringExpectedAndActual()")
+    @MethodSource("ua.foxminded.schoolconsoleapp.dao.SchoolDAOTestArguments#addStudentToTheCourse_StringExpectedAndActual()")
     void addStudentToTheCourse_StringExpectedAndActual_ShouldBeEquals(String expected, String actual) {
         assertEquals(expected, actual);
     }

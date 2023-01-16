@@ -7,7 +7,7 @@ import ua.foxminded.schoolconsoleapp.dbconnection.ScriptReader;
 import ua.foxminded.schoolconsoleapp.dbconnection.TestConstants;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-public class SchoolDAOTestValues {
+public class SchoolDAOTestArguments {
 
     static Stream<Arguments> findStudentsRelatedToCourse_CheckValues() {
         ScriptReader.readSqlScript(TestConstants.STARTUP_SCRIPT,
