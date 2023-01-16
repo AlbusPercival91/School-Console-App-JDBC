@@ -9,7 +9,7 @@ import ua.foxminded.schoolconsoleapp.testdata.CourseMaker;
 import ua.foxminded.schoolconsoleapp.testdata.GroupMaker;
 import ua.foxminded.schoolconsoleapp.testdata.StudentMaker;
 
-public class TestDataDAO {
+public class DummyDataDAO {
     StudentMaker student = new StudentMaker();
     CourseMaker course = new CourseMaker();
     GroupMaker group = new GroupMaker();

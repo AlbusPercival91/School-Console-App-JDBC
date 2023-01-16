@@ -12,7 +12,7 @@ public class SchoolDAOTestArguments {
     static Stream<Arguments> findStudentsRelatedToCourse_CheckValues() {
         ScriptReader.readSqlScript(TestConstants.STARTUP_SCRIPT,
                 DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
-        TestDataDAO testData = new TestDataDAO();
+        DummyDataDAO testData = new DummyDataDAO();
         testData.createGroup(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
         testData.createCourse(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
         testData.createStudent(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
@@ -73,7 +73,7 @@ public class SchoolDAOTestArguments {
     static Stream<Arguments> addStudentToTheCourse_StringExpectedAndActual() {
         ScriptReader.readSqlScript(TestConstants.STARTUP_SCRIPT,
                 DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
-        TestDataDAO testData = new TestDataDAO();
+        DummyDataDAO testData = new DummyDataDAO();
         testData.createGroup(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
         testData.createCourse(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
         testData.createStudent(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
