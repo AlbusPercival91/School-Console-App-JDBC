@@ -7,7 +7,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>School Console App</name>
 	<description>sql-jdbc-school application that inserts/updates/deletes
-		data in the database using JDBC </description>
+		data in the database using JDBC
+	</description>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>

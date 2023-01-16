@@ -1,13 +1,12 @@
 package ua.foxminded.schoolconsoleapp;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class SchoolConsoleApp {
 
-    public static void main(String[] args) throws URISyntaxException, IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         String cmdQuery = "psql -U postgres -h localhost -p 5432 " + "-f "
                 + Paths.get(ClassLoader.getSystemResourceAsStream("initialScript.sql").toString());
         String[] envVars = { "PGPASSWORD=1234" };
