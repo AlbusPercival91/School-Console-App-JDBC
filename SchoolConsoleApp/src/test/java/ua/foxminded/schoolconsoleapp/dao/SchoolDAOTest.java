@@ -139,7 +139,17 @@ class SchoolDAOTest {
 
     @Test
     void deleteStudentByID_CheckQuantity_ShouldBeEqualOne() {
+        TestDataDAO testData = new TestDataDAO();
+        testData.createGroup(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        ScriptReader.readSqlScript("add_student.sql",
+                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        int deleted = 0;
 
+        if (SchoolDAO.getStudentID(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", "")).contains(1)) {
+            deleted = SchoolDAO.deleteStudentByID(1,
+                    DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        }
+        assertEquals(1, deleted);
     }
 
 }

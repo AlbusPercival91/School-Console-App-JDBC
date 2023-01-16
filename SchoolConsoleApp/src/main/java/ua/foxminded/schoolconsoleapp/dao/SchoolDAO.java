@@ -81,7 +81,7 @@ public class SchoolDAO {
         return student.toString() + " inserted to DB";
     }
 
-    public static String deleteStudentByID(int id, Connection dbConnection) {
+    public static int deleteStudentByID(int id, Connection dbConnection) {
         String query = "delete from school.students where student_id = " + id + ";";
         int rowsDeleted = 0;
 
@@ -90,7 +90,7 @@ public class SchoolDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return rowsDeleted + " student(s) deleted from data base";
+        return rowsDeleted;
     }
 
     public static Set<Integer> getStudentID(Connection dbConnection) {

@@ -67,7 +67,8 @@ public class ConsoleMenuFacade {
     public void deleteStudentByIdFacade(Scanner scan) {
         System.out.println(ConsoleMenuConstants.STUDENT_ID);
         int studentId = scan.nextInt();
-        System.out.println(SchoolDAO.deleteStudentByID(studentId, DBConnection.getPsqlConnection()));
+        System.out.println(SchoolDAO.deleteStudentByID(studentId, DBConnection.getPsqlConnection())
+                + " student(s) deleted from data base");
     }
 
     public void addStudentToTheCourseFacade(Scanner scan) {
