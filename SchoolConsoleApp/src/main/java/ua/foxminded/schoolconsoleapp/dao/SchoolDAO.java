@@ -122,7 +122,7 @@ public class SchoolDAO {
         return "Student with ID: " + studentId.toString() + " assigned to course: " + courseName;
     }
 
-    public static String removeStudentFromCourse(Integer studentId, String courseName, Connection dbConnection) {
+    public static int removeStudentFromCourse(Integer studentId, String courseName, Connection dbConnection) {
         String query = "DELETE \n" + "FROM school.students_courses_checkouts\n" + "WHERE student_id='" + studentId
                 + "' AND \n" + "      course_id IN (SELECT course_id \n" + "FROM school.course \n"
                 + "WHERE course_name = '" + courseName + "');";
@@ -133,7 +133,7 @@ public class SchoolDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return rowsDeleted + " student(s) with ID: " + studentId + " deleted from course " + courseName;
+        return rowsDeleted;
     }
 
 }

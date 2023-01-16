@@ -109,7 +109,8 @@ public class ConsoleMenuFacade {
 
                 if (course.generateCourses().contains(courseName)) {
                     System.out.println(
-                            SchoolDAO.removeStudentFromCourse(studentId, courseName, DBConnection.getPsqlConnection()));
+                            SchoolDAO.removeStudentFromCourse(studentId, courseName, DBConnection.getPsqlConnection())
+                                    + " student(s) with ID: " + studentId + " deleted from course " + courseName);
                 } else {
                     System.out.println(ConsoleMenuConstants.WRONG_COURSE);
                 }

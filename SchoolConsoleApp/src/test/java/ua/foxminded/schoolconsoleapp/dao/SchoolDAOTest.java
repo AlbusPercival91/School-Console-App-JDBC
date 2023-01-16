@@ -108,7 +108,6 @@ class SchoolDAOTest {
                                 .findStudentsRelatedToCourse("Art",
                                         DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""))
                                 .stream().filter(s -> s.trim().contains(" ")).count() > 0));
-
     }
 
     @ParameterizedTest
@@ -141,7 +140,7 @@ class SchoolDAOTest {
     void deleteStudentByID_CheckQuantity_ShouldBeEqualOne() {
         TestDataDAO testData = new TestDataDAO();
         testData.createGroup(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
-        ScriptReader.readSqlScript("add_student.sql",
+        ScriptReader.readSqlScript("add_student_test.sql",
                 DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
         int deleted = 0;
 
@@ -159,7 +158,6 @@ class SchoolDAOTest {
         testData.createGroup(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
         testData.createCourse(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
         testData.createStudent(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
-        testData.createCourseStudentRelation(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
         return Stream.of(
                 arguments("Student with ID: 12 assigned to course: Art",
                         SchoolDAO.addStudentToTheCourse(12, "Art",
@@ -196,6 +194,20 @@ class SchoolDAOTest {
     @MethodSource("ua.foxminded.schoolconsoleapp.dao.SchoolDAOTest#addStudentToTheCourse_StringExpectedAndActual()")
     void addStudentToTheCourse_StringExpectedAndActual_ShouldBeEquals(String expected, String actual) {
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void removeStudentFromCourse_CheckQuantity_ShouldBeEquals() {
+        TestDataDAO testData = new TestDataDAO();
+        testData.createGroup(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        testData.createCourse(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        testData.createStudent(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        ScriptReader.readSqlScript("assign_course_test.sql",
+                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        int deleted = 0;
+        deleted = SchoolDAO.removeStudentFromCourse(17, "Sports",
+                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        assertEquals(1, deleted);
     }
 
 }
