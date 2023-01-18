@@ -13,11 +13,7 @@ import ua.foxminded.schoolconsoleapp.Student;
 
 public class SchoolDAO {
 
-    private SchoolDAO() {
-
-    }
-
-    public static List<String> findGroupsWithLessOrEqualsStudents(int number, Connection dbConnection) {
+    public List<String> findGroupsWithLessOrEqualsStudents(int number, Connection dbConnection) {
         List<String> groupID = new ArrayList<>();
         List<String> groupName = new ArrayList<>();
         String studentCountQuery = "SELECT group_id, COUNT (*) FROM school.students GROUP BY group_id HAVING COUNT(*)<="
@@ -46,7 +42,7 @@ public class SchoolDAO {
         return groupName;
     }
 
-    public static List<String> findStudentsRelatedToCourse(String courseName, Connection dbConnection) {
+    public List<String> findStudentsRelatedToCourse(String courseName, Connection dbConnection) {
         String query = "SELECT first_name, last_name\n" + " FROM school.students\n"
                 + "  JOIN school.students_courses_checkouts \n"
                 + "    ON school.students_courses_checkouts.student_id = school.students.student_id\n"
@@ -67,7 +63,7 @@ public class SchoolDAO {
         return studentName;
     }
 
-    public static String addNewStudent(Student student, Connection dbConnection) {
+    public String addNewStudent(Student student, Connection dbConnection) {
         String query = "insert into school.students(group_id, first_name, last_name) values(?,?,?)";
 
         try (Connection connection = dbConnection; PreparedStatement statement = connection.prepareStatement(query)) {
@@ -81,7 +77,7 @@ public class SchoolDAO {
         return student.toString() + " inserted to DB";
     }
 
-    public static int deleteStudentByID(int id, Connection dbConnection) {
+    public int deleteStudentByID(int id, Connection dbConnection) {
         String query = "delete from school.students where student_id = " + id + ";";
         int rowsDeleted = 0;
 
@@ -93,7 +89,7 @@ public class SchoolDAO {
         return rowsDeleted;
     }
 
-    public static Set<Integer> getStudentID(Connection dbConnection) {
+    public Set<Integer> getStudentID(Connection dbConnection) {
         Set<Integer> studentId = new HashSet<>();
         String query = "select student_id from school.students;";
 
@@ -109,7 +105,7 @@ public class SchoolDAO {
         return studentId;
     }
 
-    public static String addStudentToTheCourse(Integer studentId, String courseName, Connection dbConnection) {
+    public String addStudentToTheCourse(Integer studentId, String courseName, Connection dbConnection) {
         String query = "INSERT INTO school.students_courses_checkouts(student_id, course_id)\n" + " SELECT\n"
                 + "     (SELECT student_id FROM school.students WHERE student_id=" + studentId + "),\n"
                 + "     (SELECT course_id FROM school.course WHERE course_name = '" + courseName + "');";
@@ -122,7 +118,7 @@ public class SchoolDAO {
         return "Student with ID: " + studentId.toString() + " assigned to course: " + courseName;
     }
 
-    public static int removeStudentFromCourse(Integer studentId, String courseName, Connection dbConnection) {
+    public int removeStudentFromCourse(Integer studentId, String courseName, Connection dbConnection) {
         String query = "DELETE \n" + "FROM school.students_courses_checkouts\n" + "WHERE student_id='" + studentId
                 + "' AND \n" + "      course_id IN (SELECT course_id \n" + "FROM school.course \n"
                 + "WHERE course_name = '" + courseName + "');";

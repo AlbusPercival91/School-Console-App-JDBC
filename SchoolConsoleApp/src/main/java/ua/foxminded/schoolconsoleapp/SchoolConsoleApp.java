@@ -29,7 +29,7 @@ public class SchoolConsoleApp {
             command = scan.nextLine();
 
             if (command.equalsIgnoreCase("a")) {
-                cmf.findGgoupsWithLessOrEqualsStudentsFacade(scan);
+                cmf.findGroupsWithLessOrEqualsStudentsFacade(scan);
             } else if (command.equalsIgnoreCase("b")) {
                 cmf.findStudentsRelatedToCourseFacade(scan, menu);
             } else if (command.equalsIgnoreCase("c")) {

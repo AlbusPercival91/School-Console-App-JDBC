@@ -6,14 +6,15 @@ import ua.foxminded.schoolconsoleapp.dbconnection.DBConnection;
 import ua.foxminded.schoolconsoleapp.testdata.CourseMaker;
 
 public class ConsoleMenuFacade {
+    SchoolDAO school = new SchoolDAO();
     CourseMaker course = new CourseMaker();
 
-    public void findGgoupsWithLessOrEqualsStudentsFacade(Scanner scan) {
+    public void findGroupsWithLessOrEqualsStudentsFacade(Scanner scan) {
         System.out.println(ConsoleMenuConstants.NUMBER_OF_STUDENTS);
 
         if (scan.hasNextInt()) {
             int quant = scan.nextInt();
-            SchoolDAO.findGroupsWithLessOrEqualsStudents(quant, DBConnection.getPsqlConnection())
+            school.findGroupsWithLessOrEqualsStudents(quant, DBConnection.getPsqlConnection())
                     .forEach(System.out::println);
         } else {
             System.out.println(ConsoleMenuConstants.DIGITS_REQUIRED);
@@ -25,7 +26,7 @@ public class ConsoleMenuFacade {
         String courseName = scan.nextLine();
 
         if (course.generateCourses().contains(courseName)) {
-            SchoolDAO.findStudentsRelatedToCourse(courseName, DBConnection.getPsqlConnection())
+            school.findStudentsRelatedToCourse(courseName, DBConnection.getPsqlConnection())
                     .forEach(System.out::println);
             System.out.println("\n" + menu);
         } else {
@@ -52,7 +53,7 @@ public class ConsoleMenuFacade {
                         groupId = null;
                     }
                     Student student = new Student(groupId, firstName, lastName);
-                    System.out.println(SchoolDAO.addNewStudent(student, DBConnection.getPsqlConnection()));
+                    System.out.println(school.addNewStudent(student, DBConnection.getPsqlConnection()));
                 } else {
                     System.out.println(ConsoleMenuConstants.GROUP_ID_NOTE);
                 }
@@ -67,7 +68,7 @@ public class ConsoleMenuFacade {
     public void deleteStudentByIdFacade(Scanner scan) {
         System.out.println(ConsoleMenuConstants.STUDENT_ID);
         int studentId = scan.nextInt();
-        System.out.println(SchoolDAO.deleteStudentByID(studentId, DBConnection.getPsqlConnection())
+        System.out.println(school.deleteStudentByID(studentId, DBConnection.getPsqlConnection())
                 + " student(s) deleted from data base");
     }
 
@@ -77,13 +78,13 @@ public class ConsoleMenuFacade {
         if (scan.hasNextInt()) {
             Integer studentId = scan.nextInt();
 
-            if (SchoolDAO.getStudentID(DBConnection.getPsqlConnection()).contains(studentId)) {
+            if (school.getStudentID(DBConnection.getPsqlConnection()).contains(studentId)) {
                 System.out.println(ConsoleMenuConstants.COURSE_LIST);
                 course.generateCourses().forEach(System.out::println);
                 String courseName = scan.next();
 
                 if (course.generateCourses().contains(courseName)) {
-                    SchoolDAO.addStudentToTheCourse(studentId, courseName, DBConnection.getPsqlConnection());
+                    school.addStudentToTheCourse(studentId, courseName, DBConnection.getPsqlConnection());
                     System.out.println("Student with ID: " + studentId + " assigned to the course: " + courseName);
                 } else {
                     System.out.println(ConsoleMenuConstants.WRONG_COURSE);
@@ -102,14 +103,14 @@ public class ConsoleMenuFacade {
         if (scan.hasNextInt()) {
             Integer studentId = scan.nextInt();
 
-            if (SchoolDAO.getStudentID(DBConnection.getPsqlConnection()).contains(studentId)) {
+            if (school.getStudentID(DBConnection.getPsqlConnection()).contains(studentId)) {
                 System.out.println(ConsoleMenuConstants.COURSE_LIST);
                 course.generateCourses().forEach(System.out::println);
                 String courseName = scan.next();
 
                 if (course.generateCourses().contains(courseName)) {
                     System.out.println(
-                            SchoolDAO.removeStudentFromCourse(studentId, courseName, DBConnection.getPsqlConnection())
+                            school.removeStudentFromCourse(studentId, courseName, DBConnection.getPsqlConnection())
                                     + " student(s) with ID: " + studentId + " deleted from course " + courseName);
                 } else {
                     System.out.println(ConsoleMenuConstants.WRONG_COURSE);
