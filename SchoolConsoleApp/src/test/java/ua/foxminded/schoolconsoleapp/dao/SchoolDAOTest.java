@@ -51,7 +51,7 @@ class SchoolDAOTest {
         testData.createGroup(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
         testData.createStudent(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
         Pattern pattern = Pattern.compile("[a-z]{2}-[0-9]{2}");
-        List<String> actual = SchoolDAO.findGgoupsWithLessOrEqualsStudents(30,
+        List<String> actual = SchoolDAO.findGroupsWithLessOrEqualsStudents(30,
                 DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
         int matchedPattern = (int) actual.stream().map(pattern::matcher).filter(Matcher::find).count();
 

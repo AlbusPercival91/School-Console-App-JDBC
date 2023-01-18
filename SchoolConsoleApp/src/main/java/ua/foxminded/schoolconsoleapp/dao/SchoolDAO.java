@@ -17,7 +17,7 @@ public class SchoolDAO {
 
     }
 
-    public static List<String> findGgoupsWithLessOrEqualsStudents(int number, Connection dbConnection) {
+    public static List<String> findGroupsWithLessOrEqualsStudents(int number, Connection dbConnection) {
         List<String> groupID = new ArrayList<>();
         List<String> groupName = new ArrayList<>();
         String studentCountQuery = "SELECT group_id, COUNT (*) FROM school.students GROUP BY group_id HAVING COUNT(*)<="

@@ -13,7 +13,7 @@ public class ConsoleMenuFacade {
 
         if (scan.hasNextInt()) {
             int quant = scan.nextInt();
-            SchoolDAO.findGgoupsWithLessOrEqualsStudents(quant, DBConnection.getPsqlConnection())
+            SchoolDAO.findGroupsWithLessOrEqualsStudents(quant, DBConnection.getPsqlConnection())
                     .forEach(System.out::println);
         } else {
             System.out.println(ConsoleMenuConstants.DIGITS_REQUIRED);
