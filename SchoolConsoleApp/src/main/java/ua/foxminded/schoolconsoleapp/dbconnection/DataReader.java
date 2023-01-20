@@ -35,7 +35,7 @@ public class DataReader {
         try (InputStream is = getClass().getClassLoader().getResourceAsStream(file)) {
             props.load(is);
         } catch (IOException e) {
-            throw new IllegalStateException(file + " not found");
+            throw new IllegalArgumentException("Wrong connection parameters");
         }
         return props;
     }

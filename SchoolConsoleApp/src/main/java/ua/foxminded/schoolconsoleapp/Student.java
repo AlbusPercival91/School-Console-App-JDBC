@@ -5,10 +5,6 @@ public class Student {
     private String firstName;
     private String lastName;
 
-    public Student() {
-
-    }
-
     public Student(Integer groupId, String firstName, String lastName) {
         super();
         this.groupId = groupId;

@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,6 +42,15 @@ class DataReaderTest {
             }
         }
         assertEquals(groupsExpected, groupsActual);
+    }
+
+    @Test
+    void readProperties_ExpectedAndActualString_ShouldBeEquals() throws SQLException {
+        DataReader reader = new DataReader();
+        Properties propDb = reader.readProperties("h2.properties");
+        String expectedDbUrl = "jdbc:h2:~/test;MODE=PostgreSQL";
+        String actualDbUrl = propDb.getProperty("db.url");
+        assertEquals(expectedDbUrl, actualDbUrl);
     }
 
     @Test
