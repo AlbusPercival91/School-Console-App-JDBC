@@ -33,7 +33,11 @@ public class DataReader {
         Properties props = new Properties();
 
         try (InputStream is = getClass().getClassLoader().getResourceAsStream(file)) {
-            props.load(is);
+            if (is != null) {
+                props.load(is);
+            } else {
+                throw new IllegalArgumentException("File missing");
+            }
         } catch (IOException e) {
             throw new IllegalArgumentException("Wrong connection parameters");
         }

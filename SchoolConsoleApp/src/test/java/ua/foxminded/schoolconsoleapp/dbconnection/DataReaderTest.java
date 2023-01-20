@@ -54,8 +54,16 @@ class DataReaderTest {
     }
 
     @Test
-    void readSqlScript_ThrowsIllegalArgumentException_IfFileIsNull() {
-        Exception exception = assertThrows(Exception.class,
+    void readProperties_InputMissingFile_ShouldThrowIllegalArgumentException() {
+        DataReader reader = new DataReader();
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> reader.readProperties("???"));
+        assertEquals("File missing", exception.getMessage());
+    }
+
+    @Test
+    void readSqlScript_InputMissingFile_ShouldThrowIllegalArgumentException() {
+        Exception exception = assertThrows(
+                Exception.class,
                 () -> DataReader.readSqlScript(null, DBConnection.getConnection("h2.properties")));
         assertEquals("File not found", exception.getMessage());
     }
