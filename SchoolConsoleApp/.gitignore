@@ -1,0 +1,7 @@
+/target/
+/.classpath
+/*.project
+/.settings
+/.editorconfig
+/log4j-application.log
+/scrapbook
