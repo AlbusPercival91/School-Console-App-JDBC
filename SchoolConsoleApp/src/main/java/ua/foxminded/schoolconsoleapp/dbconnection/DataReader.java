@@ -7,14 +7,11 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.apache.ibatis.ognl.PropertyAccessor;
 
-public class ScriptReader {
-
-    private ScriptReader() {
-
-    }
+public class DataReader {
 
     public static void readSqlScript(String scriptFile, Connection dbConnection) {
         if (scriptFile != null) {
@@ -30,5 +27,16 @@ public class ScriptReader {
         } else {
             throw new IllegalArgumentException("File not found");
         }
+    }
+
+    public Properties readProperties(String file) {
+        Properties props = new Properties();
+
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream(file)) {
+            props.load(is);
+        } catch (IOException e) {
+            throw new IllegalStateException(file + " not found");
+        }
+        return props;
     }
 }

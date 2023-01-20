@@ -16,21 +16,19 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ua.foxminded.schoolconsoleapp.Student;
 import ua.foxminded.schoolconsoleapp.dbconnection.DBConnection;
-import ua.foxminded.schoolconsoleapp.dbconnection.ScriptReader;
+import ua.foxminded.schoolconsoleapp.dbconnection.DataReader;
 import ua.foxminded.schoolconsoleapp.dbconnection.TestConstants;
 
 class SchoolDAOTest {
 
     @BeforeEach
     void createTables() {
-        ScriptReader.readSqlScript(TestConstants.STARTUP_SCRIPT,
-                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        DataReader.readSqlScript(TestConstants.STARTUP_SCRIPT, DBConnection.getConnection("h2.properties"));
     }
 
     @AfterEach
     void dropAllTables() throws Exception {
-        ScriptReader.readSqlScript(TestConstants.END_SCRIPT,
-                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        DataReader.readSqlScript(TestConstants.END_SCRIPT, DBConnection.getConnection("h2.properties"));
     }
 
     @ParameterizedTest
@@ -49,11 +47,11 @@ class SchoolDAOTest {
     void findGroupsWithLessOrEqualsStudents_CheckAllValues_ShouldMatchPattern() throws SQLException {
         SchoolDAO school = new SchoolDAO();
         DummyDataDAO testData = new DummyDataDAO();
-        testData.createGroup(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
-        testData.createStudent(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        testData.createGroup(DBConnection.getConnection("h2.properties"));
+        testData.createStudent(DBConnection.getConnection("h2.properties"));
         Pattern pattern = Pattern.compile("[a-z]{2}-[0-9]{2}");
         List<String> actual = school.findGroupsWithLessOrEqualsStudents(30,
-                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+                DBConnection.getConnection("h2.properties"));
         int matchedPattern = (int) actual.stream().map(pattern::matcher).filter(Matcher::find).count();
 
         assertEquals(10, matchedPattern);
@@ -63,13 +61,13 @@ class SchoolDAOTest {
     void addNewStudent_StringExpectedAndActual_ShouldBeEquals() throws SQLException {
         SchoolDAO school = new SchoolDAO();
         DummyDataDAO testData = new DummyDataDAO();
-        testData.createGroup(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        testData.createGroup(DBConnection.getConnection("h2.properties"));
         Student student = new Student(4, "Harry", "Potter");
-        school.addNewStudent(student, DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        school.addNewStudent(student, DBConnection.getConnection("h2.properties"));
         String actual = "";
         String expected = 1 + " " + student.getGroupId() + " " + student.getFirstName() + " " + student.getLastName();
 
-        try (Connection connection = DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", "");
+        try (Connection connection = DBConnection.getConnection("h2.properties");
                 Statement statement = connection.createStatement()) {
             ResultSet set = statement.executeQuery("select*from school.students;");
 
@@ -84,13 +82,12 @@ class SchoolDAOTest {
     void deleteStudentByID_CheckQuantity_ShouldBeEqualOne() {
         SchoolDAO school = new SchoolDAO();
         DummyDataDAO testData = new DummyDataDAO();
-        testData.createGroup(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
-        ScriptReader.readSqlScript("add_student_test.sql",
-                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        testData.createGroup(DBConnection.getConnection("h2.properties"));
+        DataReader.readSqlScript("add_student_test.sql", DBConnection.getConnection("h2.properties"));
         int deleted = 0;
 
-        if (school.getStudentID(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", "")).contains(1)) {
-            deleted = school.deleteStudentByID(1, DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        if (school.getStudentID(DBConnection.getConnection("h2.properties")).contains(1)) {
+            deleted = school.deleteStudentByID(1, DBConnection.getConnection("h2.properties"));
         }
         assertEquals(1, deleted);
     }
@@ -99,14 +96,12 @@ class SchoolDAOTest {
     void removeStudentFromCourse_CheckQuantity_ShouldBeEquals() {
         SchoolDAO school = new SchoolDAO();
         DummyDataDAO testData = new DummyDataDAO();
-        testData.createGroup(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
-        testData.createCourse(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
-        testData.createStudent(DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
-        ScriptReader.readSqlScript("assign_course_test.sql",
-                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        testData.createGroup(DBConnection.getConnection("h2.properties"));
+        testData.createCourse(DBConnection.getConnection("h2.properties"));
+        testData.createStudent(DBConnection.getConnection("h2.properties"));
+        DataReader.readSqlScript("assign_course_test.sql", DBConnection.getConnection("h2.properties"));
         int deleted = 0;
-        deleted = school.removeStudentFromCourse(17, "Sports",
-                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        deleted = school.removeStudentFromCourse(17, "Sports", DBConnection.getConnection("h2.properties"));
         assertEquals(1, deleted);
     }
 

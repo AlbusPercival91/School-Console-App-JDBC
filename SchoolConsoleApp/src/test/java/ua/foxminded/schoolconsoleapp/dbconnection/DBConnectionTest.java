@@ -10,15 +10,8 @@ import org.junit.jupiter.api.Test;
 class DBConnectionTest {
 
     @Test
-    void testGetPsqlConnection() throws SQLException {
-        Connection con = DBConnection.getPsqlConnection();
-        assertNotNull(con);
-        con.close();
-    }
-
-    @Test
     void testGetConnection() throws SQLException {
-        Connection con = DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", "");
+        Connection con = DBConnection.getConnection("h2.properties");
         assertNotNull(con);
         con.close();
     }
@@ -26,7 +19,7 @@ class DBConnectionTest {
     @Test
     void testGetConnection_ThrowsIllegalArgumentException_IfConnectionIsWrong() {
         Exception exception = assertThrows(IllegalArgumentException.class,
-                () -> DBConnection.getConnection(":h2:~/test;MODE=PostgreSQL", "", ""));
+                () -> DBConnection.getConnection("h2_incorrect.properties"));
         assertEquals("Wrong connection parameters", exception.getMessage());
     }
 }

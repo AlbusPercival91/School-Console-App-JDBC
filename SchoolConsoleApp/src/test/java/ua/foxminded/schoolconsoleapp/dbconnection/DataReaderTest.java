@@ -13,27 +13,25 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ScriptReaderTest {
+class DataReaderTest {
 
     @BeforeEach
     void createTables() {
-        ScriptReader.readSqlScript(TestConstants.STARTUP_SCRIPT,
-                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        DataReader.readSqlScript(TestConstants.STARTUP_SCRIPT, DBConnection.getConnection("h2.properties"));
     }
 
     @AfterEach
     void dropAllTables() throws Exception {
-        ScriptReader.readSqlScript(TestConstants.END_SCRIPT, DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        DataReader.readSqlScript(TestConstants.END_SCRIPT, DBConnection.getConnection("h2.properties"));
     }
 
     @Test
     void readSqlScript_ExpectedAndActualList_ShouldBeEquals() throws SQLException {
-        ScriptReader.readSqlScript("scriptreader_test.sql",
-                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", ""));
+        DataReader.readSqlScript("scriptreader_test.sql", DBConnection.getConnection("h2.properties"));
         List<String> groupsActual = new ArrayList<>();
         List<String> groupsExpected = Arrays.asList("AB-28", "PM-83", "WD-40");
 
-        try (Connection connection = DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", "");
+        try (Connection connection = DBConnection.getConnection("h2.properties");
                 Statement statement = connection.createStatement()) {
             ResultSet groupSet = statement.executeQuery("select*from school.groups;");
 
@@ -46,8 +44,8 @@ class ScriptReaderTest {
 
     @Test
     void readSqlScript_ThrowsIllegalArgumentException_IfFileIsNull() {
-        Exception exception = assertThrows(Exception.class, () -> ScriptReader.readSqlScript(null,
-                DBConnection.getConnection("jdbc:h2:~/test;MODE=PostgreSQL", "", "")));
+        Exception exception = assertThrows(Exception.class,
+                () -> DataReader.readSqlScript(null, DBConnection.getConnection("h2.properties")));
         assertEquals("File not found", exception.getMessage());
     }
 }
